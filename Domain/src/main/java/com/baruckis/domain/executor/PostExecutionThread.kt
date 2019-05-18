@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
-include ':app', ':Domain'
+package com.baruckis.domain.executor
+
+import io.reactivex.Scheduler
+
+interface PostExecutionThread {
+    val scheduler: Scheduler
+}

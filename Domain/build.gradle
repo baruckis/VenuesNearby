@@ -14,4 +14,20 @@
  * limitations under the License.
  */
 
-include ':app', ':Domain'
+apply plugin: 'kotlin'
+
+dependencies {
+    def domainDependencies = rootProject.ext.domainDependencies
+    def domainTestDependencies = rootProject.ext.domainTestDependencies
+
+    implementation domainDependencies.javaxAnnotation
+    implementation domainDependencies.javaxInject
+    implementation domainDependencies.rxKotlin
+
+    testImplementation domainTestDependencies.jUnit
+    testImplementation domainTestDependencies.mockitoKotlin
+    testImplementation domainTestDependencies.assertJ
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
