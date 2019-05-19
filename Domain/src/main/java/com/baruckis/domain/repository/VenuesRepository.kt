@@ -21,5 +21,5 @@ import io.reactivex.Observable
 
 interface VenuesRepository {
 
-    fun getVenuesNearby(): Observable<List<Venue>>
+    fun getVenuesNearby(placeName: String): Observable<List<Venue>>
 }

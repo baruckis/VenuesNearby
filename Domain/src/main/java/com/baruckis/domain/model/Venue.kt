@@ -16,5 +16,5 @@
 
 package com.baruckis.domain.model
 
-class Venue(val name: String, val lattitude: Float, val longitude: Float) {
+class Venue(val name: String, val lattitude: Double, val longitude: Double) {
 }

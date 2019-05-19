@@ -26,10 +26,19 @@ import javax.inject.Inject
 open class GetVenuesNearby @Inject constructor(
     private val venuesRepository: VenuesRepository,
     postExecutionThread: PostExecutionThread
-) : ObservableUseCase<List<Venue>, Nothing?>(postExecutionThread) {
+) : ObservableUseCase<List<Venue>, GetVenuesNearby.Params>(postExecutionThread) {
 
-    override fun buildUseCaseObservable(params: Nothing?): Observable<List<Venue>> {
-        return venuesRepository.getVenuesNearby()
+    override fun buildUseCaseObservable(params: Params?): Observable<List<Venue>> {
+        if (params == null) throw IllegalArgumentException("Params can't be null!")
+        return venuesRepository.getVenuesNearby(params.placeName)
+    }
+
+    data class Params constructor(val placeName: String) {
+        companion object {
+            fun forVenue(placeName: String): Params {
+                return Params(placeName)
+            }
+        }
     }
 
 }
