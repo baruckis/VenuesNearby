@@ -18,7 +18,7 @@ package com.baruckis.domain.search
 
 import com.baruckis.domain.executor.PostExecutionThread
 import com.baruckis.domain.model.Venue
-import com.baruckis.domain.repository.VenuesRepository
+import com.baruckis.domain.repository.VenuesDomainRepository
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
@@ -32,7 +32,7 @@ class GetVenuesNearbyTest {
     private lateinit var getVenuesNearby: GetVenuesNearby
 
     @Mock
-    lateinit var venuesRepository: VenuesRepository
+    lateinit var venuesDomainRepository: VenuesDomainRepository
 
     @Mock
     lateinit var postExecutionThread: PostExecutionThread
@@ -40,7 +40,7 @@ class GetVenuesNearbyTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        getVenuesNearby = GetVenuesNearby(venuesRepository, postExecutionThread)
+        getVenuesNearby = GetVenuesNearby(venuesDomainRepository, postExecutionThread)
     }
 
     @Test
@@ -62,7 +62,7 @@ class GetVenuesNearbyTest {
 
 
     private fun stubGetVenuesNearby(observable: Observable<List<Venue>>) {
-        whenever(venuesRepository.getVenuesNearby(any()))
+        whenever(venuesDomainRepository.getVenuesNearby(any()))
             .thenReturn(observable)
     }
 

@@ -19,7 +19,7 @@ package com.baruckis.domain.repository
 import com.baruckis.domain.model.Venue
 import io.reactivex.Observable
 
-interface VenuesRepository {
+interface VenuesDomainRepository {
 
     fun getVenuesNearby(placeName: String): Observable<List<Venue>>
 }

@@ -32,4 +32,8 @@ open class VenuesDataStoreFactory @Inject constructor(
         }
     }
 
+    open fun getCacheDataStore(): VenuesDataStore {
+        return venuesCacheDataStore
+    }
+
 }
