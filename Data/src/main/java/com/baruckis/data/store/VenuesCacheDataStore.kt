@@ -23,7 +23,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class VenuesCacheDataStore @Inject constructor(
+open class VenuesCacheDataStore @Inject constructor(
     private val venuesCache: VenuesCache
 ) : VenuesDataStore {
 

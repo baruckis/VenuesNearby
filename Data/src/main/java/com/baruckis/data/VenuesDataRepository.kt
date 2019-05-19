@@ -28,7 +28,7 @@ import javax.inject.Inject
 class VenuesDataRepository @Inject constructor(
     private val mapper: VenueMapper,
     private val cache: VenuesCache,
-    private val factory: VenuesDataStoreFactory
+    private val storeFactory: VenuesDataStoreFactory
 ) : VenuesDomainRepository {
 
     override fun getVenuesNearby(placeName: String): Observable<List<Venue>> {
@@ -39,10 +39,10 @@ class VenuesDataRepository @Inject constructor(
                 Pair(areCached, isExpired)
             })
             .flatMap {
-                factory.getDataStore(it.first, it.second).getVenuesNearby(placeName)
+                storeFactory.getDataStore(it.first, it.second).getVenuesNearby(placeName)
             }
             .flatMap { venueEntities ->
-                factory.getCacheDataStore()
+                storeFactory.getCacheDataStore()
                     .saveVenuesNearby(venueEntities)
                     .andThen(Observable.just(venueEntities))
             }

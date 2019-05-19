@@ -24,7 +24,7 @@ import io.reactivex.Observable
 import java.lang.UnsupportedOperationException
 import javax.inject.Inject
 
-class VenuesRemoteDataStore @Inject constructor(
+open class VenuesRemoteDataStore @Inject constructor(
     private val venuesRemote: VenuesRemote
 ) : VenuesDataStore {
 
