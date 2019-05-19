@@ -45,9 +45,23 @@ buildscript {
         ]
 
         domainTestDependencies = [
+                assertJ:        "org.assertj:assertj-core:${assertj_version}",
                 jUnit:          "junit:junit:${junit_version}",
-                mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
-                assertJ:        "org.assertj:assertj-core:${assertj_version}"
+                mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
+        ]
+
+        dataDependencies = [
+                javaxAnnotation: "javax.annotation:javax.annotation-api:${javax_annotation_version}",
+                javaxInject:     "javax.inject:javax.inject:${javax_inject_version}",
+                kotlin:          "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
+                rxKotlin:        "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
+        ]
+
+        dataTestDependencies = [
+                assertJ:        "org.assertj:assertj-core:${assertj_version}",
+                jUnit:          "junit:junit:${junit_version}",
+                kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+                mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
         ]
 
     }
