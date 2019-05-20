@@ -20,7 +20,7 @@ import com.baruckis.data.model.VenueEntity
 import com.baruckis.domain.model.Venue
 import javax.inject.Inject
 
-class VenueMapper @Inject constructor() : EntityMapper<VenueEntity, Venue> {
+open class VenueMapper @Inject constructor() : EntityMapper<VenueEntity, Venue> {
 
     override fun mapFromEntity(entity: VenueEntity): Venue {
         return Venue(entity.name, entity.lattitude, entity.longitude)
