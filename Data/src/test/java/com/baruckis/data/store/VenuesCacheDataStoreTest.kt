@@ -28,14 +28,14 @@ import org.junit.Test
 class VenuesCacheDataStoreTest {
 
     private val venuesCache = mock<VenuesCache>()
-    private val venuesDataStore = VenuesCacheDataStore(venuesCache)
+    private val venuesCacheDataStore = VenuesCacheDataStore(venuesCache)
 
     private val venueEntity = VenueEntity("Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
 
     @Test
     fun getVenuesNearbyCompletes() {
         stubGetVenuesNearby(Observable.just(listOf(venueEntity)))
-        val testObserver = venuesDataStore.getVenuesNearby("Trafalgar Sq").test()
+        val testObserver = venuesCacheDataStore.getVenuesNearby("Trafalgar Sq").test()
         testObserver.assertComplete()
     }
 
@@ -43,21 +43,21 @@ class VenuesCacheDataStoreTest {
     fun getVenuesNearbyReturnsData() {
         val data = listOf(venueEntity)
         stubGetVenuesNearby(Observable.just(data))
-        val testObserver = venuesDataStore.getVenuesNearby("Trafalgar Sq").test()
+        val testObserver = venuesCacheDataStore.getVenuesNearby("Trafalgar Sq").test()
         testObserver.assertValue(data)
     }
 
     @Test
     fun saveVenuesNearbyCompletes() {
         stubSaveVenuesNearby(Completable.complete())
-        val testObserver = venuesDataStore.saveVenuesNearby(listOf(venueEntity)).test()
+        val testObserver = venuesCacheDataStore.saveVenuesNearby(listOf(venueEntity)).test()
         testObserver.assertComplete()
     }
 
     @Test
     fun clearVenuesNearbyCompletes() {
         stubClearVenuesNearby(Completable.complete())
-        val testObserver = venuesDataStore.clearVenuesNearby().test()
+        val testObserver = venuesCacheDataStore.clearVenuesNearby().test()
         testObserver.assertComplete()
     }
 
