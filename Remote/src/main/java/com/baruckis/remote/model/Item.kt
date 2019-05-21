@@ -16,5 +16,11 @@
 
 package com.baruckis.remote.model
 
-data class VenueRecommendationsApiResponseModel(val response: Response) {
+data class Item(val venue: Venue) {
+
+    data class Venue(val name: String, val location: Location) {
+
+        data class Location(val lat: Double, val lng: Double)
+
+    }
 }

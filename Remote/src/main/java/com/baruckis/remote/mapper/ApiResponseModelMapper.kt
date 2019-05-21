@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.baruckis.remote.model
+package com.baruckis.remote.mapper
 
-data class VenueRecommendationsApiResponseModel(val response: Response) {
+interface ApiResponseModelMapper<RemoteModel, DataEntity> {
+
+    fun mapFromApiResponseModel(remote: RemoteModel): DataEntity
 }
