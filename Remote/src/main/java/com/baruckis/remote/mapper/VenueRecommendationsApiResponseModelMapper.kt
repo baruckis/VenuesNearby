@@ -19,7 +19,7 @@ package com.baruckis.remote.mapper
 import com.baruckis.data.model.VenueEntity
 import com.baruckis.remote.model.Item
 
-class VenueRecommendationsApiResponseModelMapper(): ApiResponseModelMapper<Item, VenueEntity> {
+open class VenueRecommendationsApiResponseModelMapper(): ApiResponseModelMapper<Item, VenueEntity> {
 
     override fun mapFromApiResponseModel(remote: Item): VenueEntity {
         return VenueEntity(remote.venue.name, remote.venue.location.lat, remote.venue.location.lng)

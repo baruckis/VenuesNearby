@@ -1,0 +1,71 @@
+/*
+ * Copyright 2019 Andrius Baruckis www.baruckis.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.baruckis.remote
+
+import com.baruckis.data.model.VenueEntity
+import com.baruckis.remote.mapper.VenueRecommendationsApiResponseModelMapper
+import com.baruckis.remote.model.Groups
+import com.baruckis.remote.model.Item
+import com.baruckis.remote.model.Response
+import com.baruckis.remote.model.VenueRecommendationsApiResponseModel
+import com.baruckis.remote.service.FoursquareApiService
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
+import io.reactivex.Observable
+import org.junit.Test
+
+class VenuesRemoteImplTest {
+
+    private val mapper = mock<VenueRecommendationsApiResponseModelMapper>()
+    private val service = mock<FoursquareApiService>()
+    private val remote = VenuesRemoteImpl(service, mapper)
+
+    private val item = Item(
+        Item.Venue("Vingio parkas", Item.Venue.Location(54.68293703261666, 25.237655639648438))
+    )
+    private val model = VenueRecommendationsApiResponseModel(Response(Groups(listOf(item))))
+    private val entity = VenueEntity("Vingio parkas",54.68293703261666, 25.237655639648438)
+
+    @Test
+    fun getVenuesNearbyCompletes() {
+        stubGetVenuesNearby(Observable.just(model))
+
+        val testObserver = remote.getVenuesNearby("Vilnius").test()
+        testObserver.assertComplete()
+    }
+
+    @Test
+    fun getVenuesNearbyReturnsData() {
+        stubGetVenuesNearby(Observable.just(model))
+        val entities = mutableListOf<VenueEntity>()
+
+        model.response.groups.items.forEach { item ->
+            entities.add(entity)
+            whenever(mapper.mapFromApiResponseModel(item)).thenReturn(entity)
+        }
+        val testObserver = remote.getVenuesNearby("Vilnius").test()
+        testObserver.assertValue(entities)
+    }
+
+    private fun stubGetVenuesNearby(observable: Observable<VenueRecommendationsApiResponseModel>) {
+        whenever(service.getVenueRecommendations(any(), any(), any(), any()))
+            .thenReturn(observable)
+    }
+
+}
+
