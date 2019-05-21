@@ -16,7 +16,7 @@
 
 package com.baruckis.remote.model
 
-data class VenueRecommendationsResponseModel(val response: Response) {
+data class VenueRecommendationsApiResponseModel(val response: Response) {
 
 
     data class Response(val groups: Groups) {
