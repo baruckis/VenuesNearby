@@ -17,3 +17,6 @@
 package com.baruckis.remote.utils
 
 const val API_FOURSQUARE_SERVICE_BASE_URL = "https://api.foursquare.com/v2/"
+const val API_FOURSQUARE_CLIENT_ID = ""     // TODO: Use your Client ID provided by Foursquare Developers website.
+const val API_FOURSQUARE_CLIENT_SECRET = "" // TODO: Use your Client Secret provided by Foursquare Developers website.
+const val API_FOURSQUARE_DATE_FORMAT_PATTERN = "yyyyMMdd"

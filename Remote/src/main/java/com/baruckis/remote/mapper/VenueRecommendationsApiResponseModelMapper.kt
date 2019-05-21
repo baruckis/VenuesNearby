@@ -18,7 +18,6 @@ package com.baruckis.remote.mapper
 
 import com.baruckis.data.model.VenueEntity
 import com.baruckis.remote.model.Item
-import com.baruckis.remote.model.VenueRecommendationsApiResponseModel
 
 class VenueRecommendationsApiResponseModelMapper(): ApiResponseModelMapper<Item, VenueEntity> {
 
