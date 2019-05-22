@@ -69,8 +69,8 @@ class GetVenuesNearbyTest {
     private fun makeVenuesList(): List<Venue> {
         val venues = mutableListOf<Venue>()
 
-        val firstVenue = Venue("Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
-        val secondVenue = Venue("Gedimino pr.", 54.68736449150992, 25.279981398558263)
+        val firstVenue = Venue("4d1a11a6cc216ea884ff81d3","Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+        val secondVenue = Venue("4d1a11a6cc216ea884ff81d3","Gedimino pr.", 54.68736449150992, 25.279981398558263)
 
         venues.add(firstVenue)
         venues.add(secondVenue)

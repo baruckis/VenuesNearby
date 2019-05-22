@@ -29,7 +29,7 @@ class VenuesRemoteDataStoreTest {
     private val venuesRemote = mock<VenuesRemote>()
     private val venuesRemoteDataStore = VenuesRemoteDataStore(venuesRemote)
 
-    private val venueEntity = VenueEntity("Gedimino pr.", 54.68736449150992, 25.279981398558263)
+    private val venueEntity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Gedimino pr.", 54.68736449150992, 25.279981398558263)
 
     @Test
     fun getVenuesNearbyCompletes() {

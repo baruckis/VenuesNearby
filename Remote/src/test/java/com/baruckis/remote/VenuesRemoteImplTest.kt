@@ -36,10 +36,10 @@ class VenuesRemoteImplTest {
     private val remote = VenuesRemoteImpl(service, mapper)
 
     private val item = Item(
-        Item.Venue("Vingio parkas", Item.Venue.Location(54.68293703261666, 25.237655639648438))
+        Item.Venue("4d1a11a6cc216ea884ff81d3", "Vingio parkas", Item.Venue.Location(54.68293703261666, 25.237655639648438))
     )
     private val model = VenueRecommendationsApiResponseModel(Response(Groups(listOf(item))))
-    private val entity = VenueEntity("Vingio parkas",54.68293703261666, 25.237655639648438)
+    private val entity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Vingio parkas",54.68293703261666, 25.237655639648438)
 
     @Test
     fun getVenuesNearbyCompletes() {

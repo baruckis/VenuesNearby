@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package com.baruckis.remote.mapper
+package com.baruckis.cache.model
 
-import com.baruckis.data.model.VenueEntity
-import com.baruckis.remote.model.Item
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-open class VenueRecommendationsApiResponseModelMapper(): ApiResponseModelMapper<Item, VenueEntity> {
+@Entity(tableName = "venue_recommendations")
+data class VenueCached (
 
-    override fun mapFromApiResponseModel(remote: Item): VenueEntity {
-        return VenueEntity(remote.venue.id, remote.venue.name, remote.venue.location.lat, remote.venue.location.lng)
-    }
+    @PrimaryKey
+    var id: String,
+    var name: String,
+    var lattitude: Double,
+    var longitude: Double
 
-}
+)

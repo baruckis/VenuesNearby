@@ -18,7 +18,7 @@ package com.baruckis.remote.model
 
 data class Item(val venue: Venue) {
 
-    data class Venue(val name: String, val location: Location) {
+    data class Venue(val id: String, val name: String, val location: Location) {
 
         data class Location(val lat: Double, val lng: Double)
 

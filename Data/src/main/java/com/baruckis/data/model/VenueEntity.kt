@@ -16,5 +16,5 @@
 
 package com.baruckis.data.model
 
-class VenueEntity(val name: String, val lattitude: Double, val longitude: Double) {
+class VenueEntity(val id: String, val name: String, val lattitude: Double, val longitude: Double) {
 }

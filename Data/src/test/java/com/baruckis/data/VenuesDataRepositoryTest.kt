@@ -43,8 +43,8 @@ class VenuesDataRepositoryTest {
 
     private val venuesDataRepository = VenuesDataRepository(venueMapper, venuesCache, venuesDataStoreFactory)
 
-    private val venueModel = Venue("Gedimino pr.", 54.68736449150992, 25.279981398558263)
-    private val venueEntity = VenueEntity("Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+    private val venueModel = Venue("4d1a11a6cc216ea884ff81d3","Gedimino pr.", 54.68736449150992, 25.279981398558263)
+    private val venueEntity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
 
 
     @Before

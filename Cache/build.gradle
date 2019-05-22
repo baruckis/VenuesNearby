@@ -45,13 +45,16 @@ dependencies {
     implementation project(':Data')
 
     implementation cacheDependencies.kotlin
+    implementation cacheDependencies.roomRuntime
     implementation cacheDependencies.rxKotlin
+
+    kapt cacheDependencies.roomCompiler
 
     testImplementation cacheTestDependencies.assertJ
     testImplementation cacheTestDependencies.jUnit
     testImplementation cacheTestDependencies.kotlinJUnit
     testImplementation cacheTestDependencies.mockitoKotlin
 
-    androidTestImplementation cacheTestDependencies.supportRunner
+    androidTestImplementation cacheTestDependencies.testRunner
 
 }
