@@ -26,6 +26,7 @@ buildscript {
         android_min_sdk_version = 23
         android_target_sdk_version = 28
         android_compile_sdk_version = 28
+        android_build_tools_version = "28.0.3"
 
         // Libraries
         javax_annotation_version = '1.3.2'  // Common Annotations for the JavaTM Platform API.
@@ -38,6 +39,7 @@ buildscript {
         junit_version = '4.12'
         assertj_version = '3.12.2'          // Rich and fluent assertions for testing for Java.
         mockito_kotlin_version = '2.1.0'
+        support_runner_version = '1.0.2'
 
 
         domainDependencies = [
@@ -81,6 +83,19 @@ buildscript {
                 jUnit:          "junit:junit:${junit_version}",
                 kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
                 mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
+        ]
+
+        cacheDependencies = [
+                kotlin:          "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
+                rxKotlin:        "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
+        ]
+
+        cacheTestDependencies = [
+                assertJ:        "org.assertj:assertj-core:${assertj_version}",
+                jUnit:          "junit:junit:${junit_version}",
+                kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+                mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
+                supportRunner:  "com.android.support.test:runner:${support_runner_version}"
         ]
 
     }
