@@ -23,6 +23,6 @@ import androidx.room.PrimaryKey
 data class CacheUpdateTime(
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int,
+    var id: Int = -1,
     var lastUpdateTime: Long
 )
