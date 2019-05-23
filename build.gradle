@@ -87,9 +87,12 @@ buildscript {
         ]
 
         cacheDependencies = [
+                javaxAnnotation: "javax.annotation:javax.annotation-api:${javax_annotation_version}",
+                javaxInject:     "javax.inject:javax.inject:${javax_inject_version}",
                 kotlin:          "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
-                roomRuntime:     "androidx.room:room-runtime:$room_version",
-                roomCompiler:    "androidx.room:room-compiler:$room_version",
+                roomCompiler:    "androidx.room:room-compiler:${room_version}",
+                roomRuntime:     "androidx.room:room-runtime:${room_version}",
+                roomRxJava:      "androidx.room:room-rxjava2:${room_version}",
                 rxKotlin:        "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
         ]
 
@@ -98,6 +101,7 @@ buildscript {
                 jUnit:          "junit:junit:${junit_version}",
                 kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
                 mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
+                roomTesting:    "androidx.room:room-testing:${room_version}",
                 testRunner:     "androidx.test:runner:${test_runner_version}"
         ]
 

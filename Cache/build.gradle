@@ -42,10 +42,14 @@ dependencies {
     def cacheDependencies = rootProject.ext.cacheDependencies
     def cacheTestDependencies = rootProject.ext.cacheTestDependencies
 
+
     implementation project(':Data')
 
+    implementation cacheDependencies.javaxAnnotation
+    implementation cacheDependencies.javaxInject
     implementation cacheDependencies.kotlin
     implementation cacheDependencies.roomRuntime
+    implementation cacheDependencies.roomRxJava
     implementation cacheDependencies.rxKotlin
 
     kapt cacheDependencies.roomCompiler
@@ -54,6 +58,7 @@ dependencies {
     testImplementation cacheTestDependencies.jUnit
     testImplementation cacheTestDependencies.kotlinJUnit
     testImplementation cacheTestDependencies.mockitoKotlin
+    testImplementation cacheTestDependencies.roomTesting
 
     androidTestImplementation cacheTestDependencies.testRunner
 
