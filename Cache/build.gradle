@@ -54,11 +54,14 @@ dependencies {
 
     kapt cacheDependencies.roomCompiler
 
+    testImplementation cacheTestDependencies.archTesting
     testImplementation cacheTestDependencies.assertJ
     testImplementation cacheTestDependencies.jUnit
     testImplementation cacheTestDependencies.kotlinJUnit
     testImplementation cacheTestDependencies.mockitoKotlin
+    testImplementation cacheTestDependencies.robolectric
     testImplementation cacheTestDependencies.roomTesting
+    testImplementation cacheTestDependencies.testCore
 
     androidTestImplementation cacheTestDependencies.testRunner
 

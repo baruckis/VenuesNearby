@@ -33,13 +33,16 @@ buildscript {
         javax_inject_version = '1'          // The Javax Inject API.
         okhttp_version = '3.14.2'           // An HTTP & HTTP/2 client for Android and Java applications.
         retrofit_version = '2.5.0'          // HTTP client Retrofit.
-        room_version = "2.0.0"              // Room - a database object mapping library.
+        robolectric_version = '4.2.1'       // Robolectric is the industry-standard unit testing framework for Android.
+        room_version = "2.0.0"              // Room is a database object mapping library.
         rx_kotlin_version = '2.3.0'         // RxKotlin.
 
         // Testing
+        arch_testing = "2.0.0"
         junit_version = '4.12'
         assertj_version = '3.12.2'          // Rich and fluent assertions for testing for Java.
         mockito_kotlin_version = '2.1.0'
+        test_core = '1.0.0'                 // The AndroidX Test Library provides an extensive framework for testing Android apps.
         test_runner_version = '1.1.1'       // Android testing library's runner.
 
 
@@ -97,11 +100,14 @@ buildscript {
         ]
 
         cacheTestDependencies = [
+                archTesting:    "androidx.arch.core:core-testing:${arch_testing}",
                 assertJ:        "org.assertj:assertj-core:${assertj_version}",
                 jUnit:          "junit:junit:${junit_version}",
                 kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
                 mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
+                robolectric:    "org.robolectric:robolectric:${robolectric_version}",
                 roomTesting:    "androidx.room:room-testing:${room_version}",
+                testCore:       "androidx.test:core:${test_core}",
                 testRunner:     "androidx.test:runner:${test_runner_version}"
         ]
 
