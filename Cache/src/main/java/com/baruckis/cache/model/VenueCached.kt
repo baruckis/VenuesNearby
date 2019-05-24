@@ -16,6 +16,7 @@
 
 package com.baruckis.cache.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -23,6 +24,7 @@ import androidx.room.PrimaryKey
 data class VenueCached (
 
     @PrimaryKey
+    @ColumnInfo(name = "venue_id")
     var id: String,
     var name: String,
     var lattitude: Double,

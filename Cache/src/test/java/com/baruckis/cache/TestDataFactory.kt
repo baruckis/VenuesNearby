@@ -17,11 +17,20 @@
 package com.baruckis.cache
 
 import com.baruckis.cache.model.VenueCached
+import com.baruckis.data.model.VenueEntity
 
 object TestDataFactory {
 
     fun createVenueCached(): VenueCached {
         return VenueCached("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+    }
+
+    fun createVenueEntity(): VenueEntity {
+        return VenueEntity("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+    }
+
+    fun createPlaceName(): String {
+        return "London"
     }
 
 }

@@ -21,13 +21,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.baruckis.cache.model.CacheUpdateTime
-import io.reactivex.Flowable
+import io.reactivex.Maybe
 
 @Dao
 abstract class CacheUpdateTimeDao {
 
     @Query("SELECT * FROM cache_update_time")
-    abstract fun getCacheUpdateTime(): Flowable<CacheUpdateTime>
+    abstract fun getCacheUpdateTime(): Maybe<CacheUpdateTime>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun replaceCacheUpdateTime(cacheUpdateTime: CacheUpdateTime)

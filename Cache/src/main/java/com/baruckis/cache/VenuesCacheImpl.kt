@@ -70,8 +70,7 @@ class VenuesCacheImpl @Inject constructor(
     override fun isVenuesNearbyCacheExpired(): Single<Boolean> {
         val currentTime = System.currentTimeMillis()
         val expirationTime = (86400000).toLong()
-        return appDatabase.cacheUpdateTimeDao().getCacheUpdateTime()
-            .single(CacheUpdateTime(lastUpdateTime = 0))
+        return appDatabase.cacheUpdateTimeDao().getCacheUpdateTime().toSingle(CacheUpdateTime(lastUpdateTime = 0))
             .map {
                 currentTime - it.lastUpdateTime > expirationTime
             }
