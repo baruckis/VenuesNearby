@@ -35,6 +35,13 @@ android {
         }
     }
 
+    // Robolectric setup.
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
 }
 
 dependencies {

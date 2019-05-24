@@ -19,7 +19,7 @@ package com.baruckis.cache.db
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.baruckis.cache.TestDataFactory
+import com.baruckis.cache.model.CacheUpdateTime
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
@@ -30,7 +30,7 @@ import org.robolectric.annotation.Config
 // Robolectric setup
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest= Config.NONE)
-class VenueCachedDaoTest {
+class CacheUpdateTimeDaoTest {
 
     @Rule
     @JvmField var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -46,24 +46,15 @@ class VenueCachedDaoTest {
         database.close()
     }
 
-
     @Test
-    fun getVenueRecommendations() {
-        val cachedModel = TestDataFactory.createVenueCached()
-        database.venueCachedDao().replaceVenueRecommendations(listOf(cachedModel))
+    fun replaceAndGetCacheUpdateTime() {
 
-        val testObserver = database.venueCachedDao().getVenueRecommendations().test()
-        testObserver.assertValue(listOf(cachedModel))
-    }
+        val cacheUpdateTime = CacheUpdateTime(-1, System.currentTimeMillis())
 
-    @Test
-    fun deleteVenueRecommendations() {
-        val cachedModel = TestDataFactory.createVenueCached()
-        database.venueCachedDao().replaceVenueRecommendations(listOf(cachedModel))
-        database.venueCachedDao().deleteVenueRecommendations()
+        database.cacheUpdateTimeDao().replaceCacheUpdateTime(cacheUpdateTime)
 
-        val testObserver = database.venueCachedDao().getVenueRecommendations().test()
-        testObserver.assertValue(emptyList())
+        val testObserver = database.cacheUpdateTimeDao().getCacheUpdateTime().test()
+        testObserver.assertValue(cacheUpdateTime)
     }
 
 }
