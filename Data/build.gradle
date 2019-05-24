@@ -23,13 +23,10 @@ dependencies {
 
     compile project(':Domain')
 
-    implementation dataDependencies.javaxAnnotation
     implementation dataDependencies.javaxInject
     implementation dataDependencies.kotlin
     implementation dataDependencies.rxKotlin
 
-    testImplementation dataTestDependencies.assertJ
-    testImplementation dataTestDependencies.jUnit
     testImplementation dataTestDependencies.kotlinJUnit
     testImplementation dataTestDependencies.mockitoKotlin
 

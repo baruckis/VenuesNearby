@@ -35,36 +35,22 @@ android {
         }
     }
 
-    // Robolectric setup.
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
-
 }
 
 dependencies {
 
-    def cacheDependencies = rootProject.ext.cacheDependencies
-    def cacheTestDependencies = rootProject.ext.cacheTestDependencies
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
 
+    implementation project(':Domain')
 
-    implementation project(':Data')
+    implementation presentationDependencies.javaxInject
+    implementation presentationDependencies.kotlin
+    implementation presentationDependencies.rxKotlin
 
-    implementation cacheDependencies.javaxInject
-    implementation cacheDependencies.kotlin
-    implementation cacheDependencies.roomRuntime
-    implementation cacheDependencies.roomRxJava
-    implementation cacheDependencies.rxKotlin
-
-    kapt cacheDependencies.roomCompiler
-
-    testImplementation cacheTestDependencies.archTesting
-    testImplementation cacheTestDependencies.kotlinJUnit
-    testImplementation cacheTestDependencies.mockitoKotlin
-    testImplementation cacheTestDependencies.robolectric
-    testImplementation cacheTestDependencies.roomTesting
-    testImplementation cacheTestDependencies.testCore
+    testImplementation presentationTestDependencies.archTesting
+    testImplementation presentationTestDependencies.kotlinJUnit
+    testImplementation presentationTestDependencies.mockitoKotlin
+    testImplementation presentationTestDependencies.robolectric
 
 }

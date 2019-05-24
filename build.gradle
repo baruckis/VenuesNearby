@@ -47,27 +47,22 @@ buildscript {
 
 
         domainDependencies = [
-                javaxAnnotation: "javax.annotation:javax.annotation-api:${javax_annotation_version}",
                 javaxInject:     "javax.inject:javax.inject:${javax_inject_version}",
                 rxKotlin:        "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
         ]
 
         domainTestDependencies = [
-                assertJ:        "org.assertj:assertj-core:${assertj_version}",
-                jUnit:          "junit:junit:${junit_version}",
+                kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
                 mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
         ]
 
         dataDependencies = [
-                javaxAnnotation: "javax.annotation:javax.annotation-api:${javax_annotation_version}",
                 javaxInject:     "javax.inject:javax.inject:${javax_inject_version}",
                 kotlin:          "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
                 rxKotlin:        "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
         ]
 
         dataTestDependencies = [
-                assertJ:        "org.assertj:assertj-core:${assertj_version}",
-                jUnit:          "junit:junit:${junit_version}",
                 kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
                 mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
         ]
@@ -83,14 +78,11 @@ buildscript {
         ]
 
         remoteTestDependencies = [
-                assertJ:        "org.assertj:assertj-core:${assertj_version}",
-                jUnit:          "junit:junit:${junit_version}",
                 kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
                 mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
         ]
 
         cacheDependencies = [
-                javaxAnnotation: "javax.annotation:javax.annotation-api:${javax_annotation_version}",
                 javaxInject:     "javax.inject:javax.inject:${javax_inject_version}",
                 kotlin:          "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
                 roomCompiler:    "androidx.room:room-compiler:${room_version}",
@@ -101,15 +93,26 @@ buildscript {
 
         cacheTestDependencies = [
                 archTesting:    "androidx.arch.core:core-testing:${arch_testing}",
-                assertJ:        "org.assertj:assertj-core:${assertj_version}",
-                jUnit:          "junit:junit:${junit_version}",
                 kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
                 mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
                 robolectric:    "org.robolectric:robolectric:${robolectric_version}",
                 roomTesting:    "androidx.room:room-testing:${room_version}",
                 testCore:       "androidx.test:core:${test_core}",
-                testRunner:     "androidx.test:runner:${test_runner_version}"
         ]
+
+        presentationDependencies = [
+                javaxInject:     "javax.inject:javax.inject:${javax_inject_version}",
+                kotlin:          "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
+                rxKotlin:        "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
+        ]
+
+        presentationTestDependencies = [
+                archTesting:    "androidx.arch.core:core-testing:${arch_testing}",
+                kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+                mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
+                robolectric:    "org.robolectric:robolectric:${robolectric_version}",
+        ]
+
 
     }
 

@@ -30,8 +30,6 @@ dependencies {
     implementation remoteDependencies.retrofitAdapter
     implementation remoteDependencies.retrofitConverter
 
-    testImplementation remoteTestDependencies.assertJ
-    testImplementation remoteTestDependencies.jUnit
     testImplementation remoteTestDependencies.kotlinJUnit
     testImplementation remoteTestDependencies.mockitoKotlin
 }
