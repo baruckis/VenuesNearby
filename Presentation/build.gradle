@@ -47,6 +47,9 @@ dependencies {
     implementation presentationDependencies.javaxInject
     implementation presentationDependencies.kotlin
     implementation presentationDependencies.rxKotlin
+    implementation presentationDependencies.lifecycleExtensions
+
+    kapt presentationDependencies.lifecycleCompiler
 
     testImplementation presentationTestDependencies.archTesting
     testImplementation presentationTestDependencies.kotlinJUnit
