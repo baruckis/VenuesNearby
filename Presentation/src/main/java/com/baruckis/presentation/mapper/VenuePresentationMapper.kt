@@ -19,7 +19,7 @@ package com.baruckis.presentation.mapper
 import com.baruckis.domain.model.Venue
 import com.baruckis.presentation.model.VenuePresentation
 
-class VenuePresentationMapper : PresentationMapper<VenuePresentation, Venue> {
+open class VenuePresentationMapper : PresentationMapper<VenuePresentation, Venue> {
 
     override fun mapToPresentation(domain: Venue): VenuePresentation {
         return VenuePresentation(domain.id, domain.name, domain.lattitude, domain.longitude)

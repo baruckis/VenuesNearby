@@ -29,7 +29,7 @@ open class GetVenuesNearby @Inject constructor(
 ) : ObservableUseCase<List<Venue>, GetVenuesNearby.Params>(postExecutionThread) {
 
     override fun buildUseCaseObservable(params: Params?): Observable<List<Venue>> {
-        if (params == null) throw IllegalArgumentException("Params can't be null!")
+        if (params == null) throw IllegalArgumentException("Params can't be null!") as Throwable
         return venuesDomainRepository.getVenuesNearby(params.placeName)
     }
 

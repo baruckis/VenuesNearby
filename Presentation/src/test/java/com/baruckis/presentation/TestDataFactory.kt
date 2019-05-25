@@ -17,11 +17,30 @@
 package com.baruckis.presentation
 
 import com.baruckis.domain.model.Venue
+import com.baruckis.presentation.model.VenuePresentation
 
 object TestDataFactory {
 
     fun createVenue(): Venue {
         return Venue("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+    }
+
+    fun createVenuePresentation(): VenuePresentation {
+        return VenuePresentation("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+    }
+
+    fun createVenueList(): List<Venue> {
+        val list = listOf<Venue>(createVenue())
+        return list
+    }
+
+    fun createVenuePresentationList(): List<VenuePresentation> {
+        val list = listOf<VenuePresentation>(createVenuePresentation())
+        return list
+    }
+
+    fun createErrorMessage(): String {
+        return "Custom error message!"
     }
 
 }
