@@ -50,6 +50,7 @@ dependencies {
     implementation project(':Cache')
 
     implementation uiDependencies.appCompat
+    implementation uiDependencies.constraintLayout
     implementation uiDependencies.javaxInject
     implementation uiDependencies.kotlin
     implementation uiDependencies.recyclerView
