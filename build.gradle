@@ -48,74 +48,83 @@ buildscript {
 
 
         domainDependencies = [
-                javaxInject:     "javax.inject:javax.inject:${javax_inject_version}",
-                rxKotlin:        "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
+                javaxInject:            "javax.inject:javax.inject:${javax_inject_version}",
+                rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
         ]
 
         domainTestDependencies = [
-                kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
+                kotlinJUnit:            "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+                mockitoKotlin:          "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
         ]
 
         dataDependencies = [
-                javaxInject:     "javax.inject:javax.inject:${javax_inject_version}",
-                kotlin:          "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
-                rxKotlin:        "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
+                javaxInject:            "javax.inject:javax.inject:${javax_inject_version}",
+                kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
+                rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
         ]
 
         dataTestDependencies = [
-                kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
+                kotlinJUnit:            "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+                mockitoKotlin:          "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
         ]
 
         remoteDependencies = [
-                kotlin:             "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
-                okHttp:             "com.squareup.okhttp3:okhttp:${okhttp_version}",
-                okHttpLogger:       "com.squareup.okhttp3:logging-interceptor:${okhttp_version}",
-                rxKotlin:           "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}",
-                retrofit:           "com.squareup.retrofit2:retrofit:${retrofit_version}",
-                retrofitAdapter:    "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}",
-                retrofitConverter:  "com.squareup.retrofit2:converter-gson:${retrofit_version}"
+                kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
+                okHttp:                 "com.squareup.okhttp3:okhttp:${okhttp_version}",
+                okHttpLogger:           "com.squareup.okhttp3:logging-interceptor:${okhttp_version}",
+                rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}",
+                retrofit:               "com.squareup.retrofit2:retrofit:${retrofit_version}",
+                retrofitAdapter:        "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}",
+                retrofitConverter:      "com.squareup.retrofit2:converter-gson:${retrofit_version}"
         ]
 
         remoteTestDependencies = [
-                kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
+                kotlinJUnit:            "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+                mockitoKotlin:          "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
         ]
 
         cacheDependencies = [
-                javaxInject:     "javax.inject:javax.inject:${javax_inject_version}",
-                kotlin:          "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
-                roomCompiler:    "androidx.room:room-compiler:${room_version}",
-                roomRuntime:     "androidx.room:room-runtime:${room_version}",
-                roomRxJava:      "androidx.room:room-rxjava2:${room_version}",
-                rxKotlin:        "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
+                javaxInject:            "javax.inject:javax.inject:${javax_inject_version}",
+                kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
+                roomCompiler:           "androidx.room:room-compiler:${room_version}",
+                roomRuntime:            "androidx.room:room-runtime:${room_version}",
+                roomRxJava:             "androidx.room:room-rxjava2:${room_version}",
+                rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
         ]
 
         cacheTestDependencies = [
-                archTesting:    "androidx.arch.core:core-testing:${arch_testing}",
-                kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
-                robolectric:    "org.robolectric:robolectric:${robolectric_version}",
-                roomTesting:    "androidx.room:room-testing:${room_version}",
-                testCore:       "androidx.test:core:${test_core}",
+                archTesting:            "androidx.arch.core:core-testing:${arch_testing}",
+                kotlinJUnit:            "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+                mockitoKotlin:          "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
+                robolectric:            "org.robolectric:robolectric:${robolectric_version}",
+                roomTesting:            "androidx.room:room-testing:${room_version}",
+                testCore:               "androidx.test:core:${test_core}",
         ]
 
         presentationDependencies = [
-                javaxInject:         "javax.inject:javax.inject:${javax_inject_version}",
-                kotlin:              "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
-                rxKotlin:            "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}",
-                lifecycleCompiler:   "androidx.lifecycle:lifecycle-compiler:${lifecycle_version}",
-                lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}"
+                javaxInject:            "javax.inject:javax.inject:${javax_inject_version}",
+                kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
+                rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}",
+                lifecycleCompiler:      "androidx.lifecycle:lifecycle-compiler:${lifecycle_version}",
+                lifecycleExtensions:    "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}"
         ]
 
         presentationTestDependencies = [
-                archTesting:    "androidx.arch.core:core-testing:${arch_testing}",
-                kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
-                robolectric:    "org.robolectric:robolectric:${robolectric_version}",
+                archTesting:            "androidx.arch.core:core-testing:${arch_testing}",
+                kotlinJUnit:            "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+                mockitoKotlin:          "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
+                robolectric:            "org.robolectric:robolectric:${robolectric_version}"
         ]
 
+        uiDependencies = [
+                kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
+                rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
+        ]
+
+        uiTestDependencies = [
+                kotlinJUnit:            "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+                mockitoKotlin:          "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
+        ]
 
     }
 
