@@ -49,8 +49,10 @@ dependencies {
     implementation project(':Remote')
     implementation project(':Cache')
 
+    implementation uiDependencies.appCompat
     implementation uiDependencies.javaxInject
     implementation uiDependencies.kotlin
+    implementation uiDependencies.recyclerView
     implementation uiDependencies.rxAndroid
     implementation uiDependencies.rxKotlin
 

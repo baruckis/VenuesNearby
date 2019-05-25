@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package com.baruckis.ui.mapper
+package com.baruckis.ui.search
 
-import com.baruckis.presentation.model.VenuePresentation
-import com.baruckis.ui.model.VenueUi
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.baruckis.ui.R
 
-class VenueUiMapper(): UiMapper<VenuePresentation, VenueUi> {
+class ExploreVenuesActivity: AppCompatActivity() {
 
-    override fun mapToUi(presentation: VenuePresentation): VenueUi {
-        return VenueUi(presentation.id, presentation.name, presentation.lattitude, presentation.longitude)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_explore_venues)
     }
 
 }
