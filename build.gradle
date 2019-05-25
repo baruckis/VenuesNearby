@@ -31,6 +31,7 @@ buildscript {
         // Libraries
         app_compat_version = '1.0.2'        // Adds support for the Action Bar user interface design pattern.
         constraint_layout_version = '1.1.3' // ViewGroup which allows you to position and size widgets in a flexible way.
+        dagger_version = '2.22.1'           // Fully static, compile-time dependency injection framework for both Java and Android.
         javax_annotation_version = '1.3.2'  // Common Annotations for the JavaTM Platform API.
         javax_inject_version = '1'          // The Javax Inject API.
         lifecycle_version = '2.0.0'
@@ -123,6 +124,10 @@ buildscript {
         uiDependencies = [
                 appCompat:              "androidx.appcompat:appcompat:${app_compat_version}",
                 constraintLayout:       "androidx.constraintlayout:constraintlayout:${constraint_layout_version}",
+                dagger:                 "com.google.dagger:dagger:${dagger_version}",
+                daggerCompiler:         "com.google.dagger:dagger-compiler:${dagger_version}",
+                daggerProcessor:        "com.google.dagger:dagger-android-processor:${dagger_version}",
+                daggerSupport:          "com.google.dagger:dagger-android-support:${dagger_version}",
                 javaxInject:            "javax.inject:javax.inject:${javax_inject_version}",
                 kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
                 recyclerView:           "androidx.recyclerview:recyclerview:${recyclerview_version}",

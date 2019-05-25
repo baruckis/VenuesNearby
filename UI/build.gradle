@@ -43,6 +43,11 @@ android {
         enabled = true
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
@@ -57,11 +62,16 @@ dependencies {
 
     implementation uiDependencies.appCompat
     implementation uiDependencies.constraintLayout
+    implementation uiDependencies.dagger
+    implementation uiDependencies.daggerSupport
     implementation uiDependencies.javaxInject
     implementation uiDependencies.kotlin
     implementation uiDependencies.recyclerView
     implementation uiDependencies.rxAndroid
     implementation uiDependencies.rxKotlin
+
+    kapt uiDependencies.daggerCompiler
+    kapt uiDependencies.daggerProcessor
 
     testImplementation uiTestDependencies.kotlinJUnit
     testImplementation uiTestDependencies.mockitoKotlin
