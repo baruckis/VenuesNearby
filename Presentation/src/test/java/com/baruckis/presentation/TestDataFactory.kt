@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-package com.baruckis.presentation;
+package com.baruckis.presentation
 
-import org.junit.Test;
+import com.baruckis.domain.model.Venue
 
-import static org.junit.Assert.*;
+object TestDataFactory {
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    fun createVenue(): Venue {
+        return Venue("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
     }
+
 }
