@@ -36,6 +36,7 @@ buildscript {
         retrofit_version = '2.5.0'          // HTTP client Retrofit.
         robolectric_version = '4.2.1'       // Robolectric is the industry-standard unit testing framework for Android.
         room_version = "2.0.0"              // Room is a database object mapping library.
+        rx_android_version = "2.1.1"        // Reactive extensions for Android.
         rx_kotlin_version = '2.3.0'         // RxKotlin.
 
         // Testing
@@ -117,7 +118,9 @@ buildscript {
         ]
 
         uiDependencies = [
+                javaxInject:            "javax.inject:javax.inject:${javax_inject_version}",
                 kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
+                rxAndroid:              "io.reactivex.rxjava2:rxandroid:${rx_android_version}",
                 rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
         ]
 

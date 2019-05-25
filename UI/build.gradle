@@ -49,7 +49,9 @@ dependencies {
     implementation project(':Remote')
     implementation project(':Cache')
 
+    implementation uiDependencies.javaxInject
     implementation uiDependencies.kotlin
+    implementation uiDependencies.rxAndroid
     implementation uiDependencies.rxKotlin
 
     testImplementation uiTestDependencies.kotlinJUnit
