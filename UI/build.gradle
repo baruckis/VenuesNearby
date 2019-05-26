@@ -18,6 +18,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt' // For annotation processing.
 
+
 android {
 
     compileSdkVersion rootProject.ext.android_compile_sdk_version
@@ -27,7 +28,7 @@ android {
         minSdkVersion rootProject.ext.android_min_sdk_version
         targetSdkVersion rootProject.ext.android_target_sdk_version
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {

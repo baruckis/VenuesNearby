@@ -14,4 +14,18 @@
  * limitations under the License.
  */
 
-include ':Domain', ':Data', ':Remote', ':Cache', ':Presentation', ':UI'
+package com.baruckis.ui.di.module
+
+import com.baruckis.data.VenuesDataRepository
+import com.baruckis.domain.repository.VenuesDomainRepository
+import dagger.Binds
+import dagger.Module
+
+
+@Module
+abstract class DataModule {
+
+    @Binds
+    abstract fun bindDataRepository(dataRepository: VenuesDataRepository): VenuesDomainRepository
+
+}

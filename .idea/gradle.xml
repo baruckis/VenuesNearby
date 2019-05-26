@@ -14,7 +14,6 @@
             <option value="$PROJECT_DIR$/Presentation" />
             <option value="$PROJECT_DIR$/Remote" />
             <option value="$PROJECT_DIR$/UI" />
-            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

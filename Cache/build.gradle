@@ -54,11 +54,17 @@ dependencies {
 
     implementation cacheDependencies.javaxInject
     implementation cacheDependencies.kotlin
-    implementation cacheDependencies.roomRuntime
+
+    kapt cacheDependencies.roomCompiler
+
+    // RoomDatabase is part of the public API since your AppDatabase extends it and you presumably use that class
+    // in your downstream dependencies. However RoomDatabase is declared as a implementation-only dependency.
+    // This means that the class isn't normally available for the downstream dependencies during compilation.
+    api cacheDependencies.roomRuntime
+
     implementation cacheDependencies.roomRxJava
     implementation cacheDependencies.rxKotlin
 
-    kapt cacheDependencies.roomCompiler
 
     testImplementation cacheTestDependencies.archTesting
     testImplementation cacheTestDependencies.kotlinJUnit

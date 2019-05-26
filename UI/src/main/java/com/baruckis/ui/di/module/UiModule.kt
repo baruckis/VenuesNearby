@@ -14,4 +14,23 @@
  * limitations under the License.
  */
 
-include ':Domain', ':Data', ':Remote', ':Cache', ':Presentation', ':UI'
+package com.baruckis.ui.di.module
+
+import com.baruckis.domain.executor.PostExecutionThread
+import com.baruckis.ui.UiThread
+import com.baruckis.ui.search.ExploreVenuesActivity
+import dagger.Binds
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
+
+
+@Module
+abstract class UiModule {
+
+    @Binds
+    abstract fun bindPostExecutionThread(uiThread: UiThread): PostExecutionThread
+
+    @ContributesAndroidInjector
+    abstract fun contributeExploreVenuesActivity(): ExploreVenuesActivity
+
+}
