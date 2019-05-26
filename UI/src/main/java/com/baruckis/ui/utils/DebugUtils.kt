@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-package com.baruckis.domain.repository
+package com.baruckis.ui.utils
 
-import com.baruckis.domain.model.Venue
-import io.reactivex.Single
+import android.util.Log
+import com.baruckis.ui.BuildConfig
 
-interface VenuesDomainRepository {
-
-    fun getVenuesNearby(placeName: String): Single<List<Venue>>
+/**
+ * Debug console logger for verbose message.
+ *
+ * @param message
+ */
+fun logConsoleVerbose(message: String) {
+    if (BuildConfig.DEBUG) {
+        Log.v(LOG_TAG, message)
+    }
 }

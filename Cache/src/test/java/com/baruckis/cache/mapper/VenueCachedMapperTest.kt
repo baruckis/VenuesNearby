@@ -28,7 +28,7 @@ class VenueCachedMapperTest {
     @Test
     fun mapFromCachedModel() {
 
-        val model = VenueCached("4d1a11a6cc216ea884ff81d3","Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+        val model = VenueCached("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
         val entity = mapper.mapFromCached(model)
 
         assertMapsDataCorrectly(model, entity)

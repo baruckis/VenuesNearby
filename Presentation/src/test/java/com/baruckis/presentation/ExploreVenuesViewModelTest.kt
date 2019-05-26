@@ -21,7 +21,7 @@ import com.baruckis.domain.model.Venue
 import com.baruckis.domain.search.GetVenuesNearby
 import com.baruckis.presentation.mapper.VenuePresentationMapper
 import com.nhaarman.mockitokotlin2.*
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.observers.DisposableSingleObserver
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Captor
@@ -30,7 +30,8 @@ import kotlin.test.assertEquals
 class ExploreVenuesViewModelTest {
 
     @Rule
-    @JvmField var instantTaskExecutorRule = InstantTaskExecutorRule()
+    @JvmField
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     var getVenuesNearby = mock<GetVenuesNearby>()
     var mapper = mock<VenuePresentationMapper>()
@@ -38,7 +39,7 @@ class ExploreVenuesViewModelTest {
     var viewModel = ExploreVenuesViewModel(getVenuesNearby, mapper)
 
     @Captor
-    val captor = argumentCaptor<DisposableObserver<List<Venue>>>()
+    val captor = argumentCaptor<DisposableSingleObserver<List<Venue>>>()
 
 
     @Test
@@ -46,7 +47,7 @@ class ExploreVenuesViewModelTest {
 
         viewModel.fetchVenuesNearby()
 
-        verify(getVenuesNearby, times(1)).execute(any(), eq(null))
+        verify(getVenuesNearby, times(1)).execute(any(), eq(GetVenuesNearby.Params.search("Vilnius")))
     }
 
     @Test
@@ -59,8 +60,8 @@ class ExploreVenuesViewModelTest {
 
         viewModel.fetchVenuesNearby()
 
-        verify(getVenuesNearby).execute(captor.capture(), eq(null))
-        captor.firstValue.onNext(venues)
+        verify(getVenuesNearby).execute(captor.capture(), eq(GetVenuesNearby.Params.search("Vilnius")))
+        captor.firstValue.onSuccess(venues)
 
         assertEquals(venuePresentations, viewModel.getVenuesNearbyLiveData().value?.data)
     }
@@ -72,7 +73,7 @@ class ExploreVenuesViewModelTest {
 
         viewModel.fetchVenuesNearby()
 
-        verify(getVenuesNearby).execute(captor.capture(), eq(null))
+        verify(getVenuesNearby).execute(captor.capture(), eq(GetVenuesNearby.Params.search("Vilnius")))
         captor.firstValue.onError(RuntimeException(errorMsg))
 
         assertEquals(errorMsg, viewModel.getVenuesNearbyLiveData().value?.message)

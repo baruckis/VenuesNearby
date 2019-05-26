@@ -21,13 +21,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "venue_recommendations")
-data class VenueCached (
+data class VenueCached(
 
-    @PrimaryKey
-    @ColumnInfo(name = "venue_id")
-    var id: String,
-    var name: String,
-    var lattitude: Double,
-    var longitude: Double
+        @PrimaryKey
+        @ColumnInfo(name = "venue_id")
+        var id: String,
+        var name: String,
+        var lattitude: Double,
+        var longitude: Double
 
 )

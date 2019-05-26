@@ -21,7 +21,7 @@ import com.baruckis.data.repository.VenuesRemote
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Test
 
 class VenuesRemoteDataStoreTest {
@@ -33,7 +33,7 @@ class VenuesRemoteDataStoreTest {
 
     @Test
     fun getVenuesNearbyCompletes() {
-        stubGetVenuesNearby(Observable.just(listOf(venueEntity)))
+        stubGetVenuesNearby(Single.just(listOf(venueEntity)))
         val testObserver = venuesRemoteDataStore.getVenuesNearby("Trafalgar Sq").test()
         testObserver.assertComplete()
     }
@@ -41,7 +41,7 @@ class VenuesRemoteDataStoreTest {
     @Test
     fun getVenuesNearbyReturnsData() {
         val data = listOf(venueEntity)
-        stubGetVenuesNearby(Observable.just(data))
+        stubGetVenuesNearby(Single.just(data))
         val testObserver = venuesRemoteDataStore.getVenuesNearby("Gedimino pr.").test()
         testObserver.assertValue(data)
     }
@@ -57,9 +57,9 @@ class VenuesRemoteDataStoreTest {
     }
 
 
-    private fun stubGetVenuesNearby(observable: Observable<List<VenueEntity>>) {
+    private fun stubGetVenuesNearby(single: Single<List<VenueEntity>>) {
         whenever(venuesRemote.getVenuesNearby(any()))
-            .thenReturn(observable)
+                .thenReturn(single)
     }
 
 }

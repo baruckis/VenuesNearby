@@ -17,7 +17,7 @@
 package com.baruckis.remote.service
 
 import com.baruckis.remote.model.VenueRecommendationsApiResponseModel
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -25,10 +25,10 @@ interface FoursquareApiService {
 
     @GET("venues/explore")
     fun getVenueRecommendations(
-        @Query("near") placeName: String,
-        @Query("client_id") clientId: String,
-        @Query("client_secret") clientSecret: String,
-        @Query("v") date: String
-    ) : Observable<VenueRecommendationsApiResponseModel>
+            @Query("near") placeName: String,
+            @Query("client_id") clientId: String,
+            @Query("client_secret") clientSecret: String,
+            @Query("v") date: String
+    ): Single<VenueRecommendationsApiResponseModel>
 
 }

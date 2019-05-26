@@ -18,7 +18,7 @@ package com.baruckis.remote
 
 import com.baruckis.data.model.VenueEntity
 import com.baruckis.remote.mapper.VenueRecommendationsApiResponseModelMapper
-import com.baruckis.remote.model.Groups
+import com.baruckis.remote.model.Group
 import com.baruckis.remote.model.Item
 import com.baruckis.remote.model.Response
 import com.baruckis.remote.model.VenueRecommendationsApiResponseModel
@@ -26,7 +26,7 @@ import com.baruckis.remote.service.FoursquareApiService
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Test
 
 class VenuesRemoteImplTest {
@@ -36,14 +36,14 @@ class VenuesRemoteImplTest {
     private val remote = VenuesRemoteImpl(service, mapper)
 
     private val item = Item(
-        Item.Venue("4d1a11a6cc216ea884ff81d3", "Vingio parkas", Item.Venue.Location(54.68293703261666, 25.237655639648438))
+            Item.Venue("4d1a11a6cc216ea884ff81d3", "Vingio parkas", Item.Venue.Location(54.68293703261666, 25.237655639648438))
     )
-    private val model = VenueRecommendationsApiResponseModel(Response(Groups(listOf(item))))
-    private val entity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Vingio parkas",54.68293703261666, 25.237655639648438)
+    private val model = VenueRecommendationsApiResponseModel(Response(listOf(Group("recommended", listOf(item)))))
+    private val entity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Vingio parkas", 54.68293703261666, 25.237655639648438)
 
     @Test
     fun getVenuesNearbyCompletes() {
-        stubGetVenuesNearby(Observable.just(model))
+        stubGetVenuesNearby(Single.just(model))
 
         val testObserver = remote.getVenuesNearby("Vilnius").test()
         testObserver.assertComplete()
@@ -51,10 +51,10 @@ class VenuesRemoteImplTest {
 
     @Test
     fun getVenuesNearbyReturnsData() {
-        stubGetVenuesNearby(Observable.just(model))
+        stubGetVenuesNearby(Single.just(model))
         val entities = mutableListOf<VenueEntity>()
 
-        model.response.groups.items.forEach { item ->
+        model.response.groups.first().items.forEach { item ->
             entities.add(entity)
             whenever(mapper.mapFromApiResponseModel(item)).thenReturn(entity)
         }
@@ -62,9 +62,9 @@ class VenuesRemoteImplTest {
         testObserver.assertValue(entities)
     }
 
-    private fun stubGetVenuesNearby(observable: Observable<VenueRecommendationsApiResponseModel>) {
+    private fun stubGetVenuesNearby(single: Single<VenueRecommendationsApiResponseModel>) {
         whenever(service.getVenueRecommendations(any(), any(), any(), any()))
-            .thenReturn(observable)
+                .thenReturn(single)
     }
 
 }

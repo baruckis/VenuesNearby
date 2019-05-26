@@ -29,17 +29,18 @@ import org.robolectric.annotation.Config
 
 // Robolectric setup
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest= Config.NONE)
+@Config(manifest = Config.NONE)
 class CacheUpdateTimeDaoTest {
 
     @Rule
-    @JvmField var instantTaskExecutorRule = InstantTaskExecutorRule()
+    @JvmField
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val database = Room.inMemoryDatabaseBuilder(
-        ApplicationProvider.getApplicationContext(),
-        AppDatabase::class.java)
-        .allowMainThreadQueries()
-        .build()
+            ApplicationProvider.getApplicationContext(),
+            AppDatabase::class.java)
+            .allowMainThreadQueries()
+            .build()
 
     @After
     fun closeDb() {

@@ -20,8 +20,8 @@ import com.baruckis.data.repository.VenuesDataStore
 import javax.inject.Inject
 
 open class VenuesDataStoreFactory @Inject constructor(
-    private val venuesCacheDataStore: VenuesCacheDataStore,
-    private val venuesRemoteDataStore: VenuesRemoteDataStore
+        private val venuesCacheDataStore: VenuesCacheDataStore,
+        private val venuesRemoteDataStore: VenuesRemoteDataStore
 ) {
 
     open fun getDataStore(venuesCached: Boolean, cacheExpired: Boolean): VenuesDataStore {

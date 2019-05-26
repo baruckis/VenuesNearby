@@ -16,5 +16,5 @@
 
 package com.baruckis.remote.model
 
-data class Response(val groups: Groups) {
+data class Response(val groups: List<Group>) {
 }

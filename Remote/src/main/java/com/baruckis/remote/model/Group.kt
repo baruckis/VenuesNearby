@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-package com.baruckis.domain.repository
+package com.baruckis.remote.model
 
-import com.baruckis.domain.model.Venue
-import io.reactivex.Single
-
-interface VenuesDomainRepository {
-
-    fun getVenuesNearby(placeName: String): Single<List<Venue>>
+data class Group(val name: String, val items: List<Item>) {
 }

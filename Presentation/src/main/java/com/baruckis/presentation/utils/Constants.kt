@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.baruckis.remote.model
+package com.baruckis.presentation.utils
 
-data class Groups(val items: List<Item>) {
-}
+/**
+ * Constants used throughout the Presentation module.
+ */
+const val LOG_TAG = "VenuesNearby Present."

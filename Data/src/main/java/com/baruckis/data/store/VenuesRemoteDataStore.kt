@@ -20,15 +20,14 @@ import com.baruckis.data.model.VenueEntity
 import com.baruckis.data.repository.VenuesDataStore
 import com.baruckis.data.repository.VenuesRemote
 import io.reactivex.Completable
-import io.reactivex.Observable
-import java.lang.UnsupportedOperationException
+import io.reactivex.Single
 import javax.inject.Inject
 
 open class VenuesRemoteDataStore @Inject constructor(
-    private val venuesRemote: VenuesRemote
+        private val venuesRemote: VenuesRemote
 ) : VenuesDataStore {
 
-    override fun getVenuesNearby(placeName: String): Observable<List<VenueEntity>> {
+    override fun getVenuesNearby(placeName: String): Single<List<VenueEntity>> {
         return venuesRemote.getVenuesNearby(placeName)
     }
 

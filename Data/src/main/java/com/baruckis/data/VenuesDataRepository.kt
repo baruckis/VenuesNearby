@@ -21,36 +21,37 @@ import com.baruckis.data.repository.VenuesCache
 import com.baruckis.data.store.VenuesDataStoreFactory
 import com.baruckis.domain.model.Venue
 import com.baruckis.domain.repository.VenuesDomainRepository
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 class VenuesDataRepository @Inject constructor(
-    private val mapper: VenueMapper,
-    private val cache: VenuesCache,
-    private val storeFactory: VenuesDataStoreFactory
+        private val mapper: VenueMapper,
+        private val cache: VenuesCache,
+        private val storeFactory: VenuesDataStoreFactory
 ) : VenuesDomainRepository {
 
-    override fun getVenuesNearby(placeName: String): Observable<List<Venue>> {
-        return Observable.zip(
-            cache.areVenuesNearbyCached().toObservable(),
-            cache.isVenuesNearbyCacheExpired().toObservable(),
-            BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { areCached, isExpired ->
-                Pair(areCached, isExpired)
-            })
-            .flatMap {
-                storeFactory.getDataStore(it.first, it.second).getVenuesNearby(placeName)
-            }
-            .flatMap { venueEntities ->
-                storeFactory.getCacheDataStore()
-                    .saveVenuesNearby(venueEntities)
-                    .andThen(Observable.just(venueEntities))
-            }
-            .map { venueEntity ->
-                venueEntity.map {
-                    mapper.mapFromEntity(it)
+    override fun getVenuesNearby(placeName: String): Single<List<Venue>> {
+
+        return Single.zip(
+                cache.areVenuesNearbyCached(),
+                cache.isVenuesNearbyCacheExpired(),
+                BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { areCached, isExpired ->
+                    Pair(areCached, isExpired)
                 }
-            }
+        ).flatMap {
+            storeFactory.getDataStore(it.first, it.second).getVenuesNearby(placeName)
+        }
+                .flatMap { venueEntities ->
+                    storeFactory.getCacheDataStore()
+                            .saveVenuesNearby(venueEntities)
+                            .andThen(Single.just(venueEntities))
+                }
+                .map { venueEntity ->
+                    venueEntity.map {
+                        mapper.mapFromEntity(it)
+                    }
+                }
     }
 
 }

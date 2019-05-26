@@ -20,14 +20,14 @@ import com.baruckis.data.model.VenueEntity
 import com.baruckis.data.repository.VenuesCache
 import com.baruckis.data.repository.VenuesDataStore
 import io.reactivex.Completable
-import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 open class VenuesCacheDataStore @Inject constructor(
-    private val venuesCache: VenuesCache
+        private val venuesCache: VenuesCache
 ) : VenuesDataStore {
 
-    override fun getVenuesNearby(placeName: String): Observable<List<VenueEntity>> {
+    override fun getVenuesNearby(placeName: String): Single<List<VenueEntity>> {
         return venuesCache.getVenuesNearby(placeName)
     }
 

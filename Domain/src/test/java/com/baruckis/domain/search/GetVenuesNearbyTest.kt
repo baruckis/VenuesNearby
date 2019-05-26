@@ -21,7 +21,7 @@ import com.baruckis.domain.model.Venue
 import com.baruckis.domain.repository.VenuesDomainRepository
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -45,32 +45,32 @@ class GetVenuesNearbyTest {
 
     @Test
     fun getVenuesCompletes() {
-        stubGetVenuesNearby(Observable.just(makeVenuesList()))
+        stubGetVenuesNearby(Single.just(makeVenuesList()))
         val testObserver =
-            getVenuesNearby.buildUseCaseObservable(GetVenuesNearby.Params.search("London")).test()
+                getVenuesNearby.buildUseCaseObservable(GetVenuesNearby.Params.search("London")).test()
         testObserver.assertComplete()
     }
 
     @Test
     fun getVenuesReturnsData() {
         val venues = makeVenuesList()
-        stubGetVenuesNearby(Observable.just(venues))
+        stubGetVenuesNearby(Single.just(venues))
         val testObserver =
-            getVenuesNearby.buildUseCaseObservable(GetVenuesNearby.Params.search("Vilnius")).test()
+                getVenuesNearby.buildUseCaseObservable(GetVenuesNearby.Params.search("Vilnius")).test()
         testObserver.assertValue(venues)
     }
 
 
-    private fun stubGetVenuesNearby(observable: Observable<List<Venue>>) {
+    private fun stubGetVenuesNearby(single: Single<List<Venue>>) {
         whenever(venuesDomainRepository.getVenuesNearby(any()))
-            .thenReturn(observable)
+                .thenReturn(single)
     }
 
     private fun makeVenuesList(): List<Venue> {
         val venues = mutableListOf<Venue>()
 
-        val firstVenue = Venue("4d1a11a6cc216ea884ff81d3","Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
-        val secondVenue = Venue("4d1a11a6cc216ea884ff81d3","Gedimino pr.", 54.68736449150992, 25.279981398558263)
+        val firstVenue = Venue("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+        val secondVenue = Venue("4d1a11a6cc216ea884ff81d3", "Gedimino pr.", 54.68736449150992, 25.279981398558263)
 
         venues.add(firstVenue)
         venues.add(secondVenue)

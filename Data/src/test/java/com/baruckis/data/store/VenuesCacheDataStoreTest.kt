@@ -22,7 +22,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Completable
-import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Test
 
 class VenuesCacheDataStoreTest {
@@ -30,11 +30,11 @@ class VenuesCacheDataStoreTest {
     private val venuesCache = mock<VenuesCache>()
     private val venuesCacheDataStore = VenuesCacheDataStore(venuesCache)
 
-    private val venueEntity = VenueEntity("4d1a11a6cc216ea884ff81d3","Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+    private val venueEntity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
 
     @Test
     fun getVenuesNearbyCompletes() {
-        stubGetVenuesNearby(Observable.just(listOf(venueEntity)))
+        stubGetVenuesNearby(Single.just(listOf(venueEntity)))
         val testObserver = venuesCacheDataStore.getVenuesNearby("Trafalgar Sq").test()
         testObserver.assertComplete()
     }
@@ -42,7 +42,7 @@ class VenuesCacheDataStoreTest {
     @Test
     fun getVenuesNearbyReturnsData() {
         val data = listOf(venueEntity)
-        stubGetVenuesNearby(Observable.just(data))
+        stubGetVenuesNearby(Single.just(data))
         val testObserver = venuesCacheDataStore.getVenuesNearby("Trafalgar Sq").test()
         testObserver.assertValue(data)
     }
@@ -62,22 +62,22 @@ class VenuesCacheDataStoreTest {
     }
 
 
-    private fun stubGetVenuesNearby(observable: Observable<List<VenueEntity>>) {
+    private fun stubGetVenuesNearby(single: Single<List<VenueEntity>>) {
         whenever(venuesCache.getVenuesNearby(any()))
-            .thenReturn(observable)
+                .thenReturn(single)
     }
 
     private fun stubSaveVenuesNearby(completable: Completable) {
         whenever(venuesCache.setLastCacheTime(any()))
-            .thenReturn(completable)
+                .thenReturn(completable)
 
         whenever(venuesCache.saveVenuesNearby(any()))
-            .thenReturn(completable)
+                .thenReturn(completable)
     }
 
     private fun stubClearVenuesNearby(completable: Completable) {
         whenever(venuesCache.clearVenuesNearby())
-            .thenReturn(completable)
+                .thenReturn(completable)
     }
 
 }

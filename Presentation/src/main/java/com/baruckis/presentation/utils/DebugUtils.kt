@@ -14,27 +14,18 @@
  * limitations under the License.
  */
 
-package com.baruckis.venuesnearby
+package com.baruckis.presentation.utils
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
-
-import org.junit.Test
-import org.junit.runner.RunWith
-
-import org.junit.Assert.*
+import android.util.Log
+import com.baruckis.presentation.BuildConfig
 
 /**
- * Instrumented test, which will execute on an Android device.
+ * Debug console logger for verbose message.
  *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * @param message
  */
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.baruckis.venuesnearby", appContext.packageName)
+fun logConsoleVerbose(message: String) {
+    if (BuildConfig.DEBUG) {
+        Log.v(LOG_TAG, message)
     }
 }

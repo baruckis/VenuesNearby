@@ -20,15 +20,15 @@ import com.baruckis.domain.executor.PostExecutionThread
 import com.baruckis.domain.interactor.ObservableUseCase
 import com.baruckis.domain.model.Venue
 import com.baruckis.domain.repository.VenuesDomainRepository
-import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 open class GetVenuesNearby @Inject constructor(
-    private val venuesDomainRepository: VenuesDomainRepository,
-    postExecutionThread: PostExecutionThread
+        private val venuesDomainRepository: VenuesDomainRepository,
+        postExecutionThread: PostExecutionThread
 ) : ObservableUseCase<List<Venue>, GetVenuesNearby.Params>(postExecutionThread) {
 
-    override fun buildUseCaseObservable(params: Params?): Observable<List<Venue>> {
+    override fun buildUseCaseObservable(params: Params?): Single<List<Venue>> {
         if (params == null) throw IllegalArgumentException("Params can't be null!")
         return venuesDomainRepository.getVenuesNearby(params.placeName)
     }

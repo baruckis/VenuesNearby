@@ -31,18 +31,18 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(
-    modules = [
-        // AndroidInjectionModule is a class of Dagger and we don't need to create it.
-        // If you want to use injection in fragment then you should use AndroidSupportInjectionModule.class else
-        // use AndroidInjectionModule.
-        AndroidInjectionModule::class,
-        AppModule::class,
-        DataModule::class,
-        CacheModule::class,
-        RemoteModule::class,
-        PresentationModule::class,
-        UiModule::class
-    ]
+        modules = [
+            // AndroidInjectionModule is a class of Dagger and we don't need to create it.
+            // If you want to use injection in fragment then you should use AndroidSupportInjectionModule.class else
+            // use AndroidInjectionModule.
+            AndroidInjectionModule::class,
+            AppModule::class,
+            DataModule::class,
+            CacheModule::class,
+            RemoteModule::class,
+            PresentationModule::class,
+            UiModule::class
+        ]
 )
 interface AppComponent {
 

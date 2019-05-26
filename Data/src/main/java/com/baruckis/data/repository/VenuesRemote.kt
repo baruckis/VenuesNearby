@@ -17,10 +17,10 @@
 package com.baruckis.data.repository
 
 import com.baruckis.data.model.VenueEntity
-import io.reactivex.Observable
+import io.reactivex.Single
 
 interface VenuesRemote {
 
-    fun getVenuesNearby(placeName: String): Observable<List<VenueEntity>>
+    fun getVenuesNearby(placeName: String): Single<List<VenueEntity>>
 
 }

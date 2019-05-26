@@ -18,11 +18,11 @@ package com.baruckis.data.repository
 
 import com.baruckis.data.model.VenueEntity
 import io.reactivex.Completable
-import io.reactivex.Observable
+import io.reactivex.Single
 
 interface VenuesDataStore {
 
-    fun getVenuesNearby(placeName: String): Observable<List<VenueEntity>>
+    fun getVenuesNearby(placeName: String): Single<List<VenueEntity>>
 
     fun saveVenuesNearby(venues: List<VenueEntity>): Completable
 

@@ -22,13 +22,12 @@ import com.baruckis.cache.model.CacheUpdateTime
 import com.baruckis.data.model.VenueEntity
 import com.baruckis.data.repository.VenuesCache
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
 class VenuesCacheImpl @Inject constructor(
-    private val appDatabase: AppDatabase,
-    private val mapper: VenueCachedMapper
+        private val appDatabase: AppDatabase,
+        private val mapper: VenueCachedMapper
 ) : VenuesCache {
 
     override fun clearVenuesNearby(): Completable {
@@ -43,15 +42,15 @@ class VenuesCacheImpl @Inject constructor(
 
         return Completable.defer {
             appDatabase.venueCachedDao()
-                .replaceVenueRecommendations(venues.map { entity -> mapper.mapToCached(entity) })
+                    .replaceVenueRecommendations(venues.map { entity -> mapper.mapToCached(entity) })
             Completable.complete()
         }
     }
 
-    override fun getVenuesNearby(placeName: String): Observable<List<VenueEntity>> {
+    override fun getVenuesNearby(placeName: String): Single<List<VenueEntity>> {
 
-        return appDatabase.venueCachedDao().getVenueRecommendations().toObservable()
-            .map { it.map { cached -> mapper.mapFromCached(cached) } }
+        return appDatabase.venueCachedDao().getVenueRecommendations().firstOrError()
+                .map { it.map { cached -> mapper.mapFromCached(cached) } }
     }
 
     override fun areVenuesNearbyCached(): Single<Boolean> {
@@ -71,9 +70,9 @@ class VenuesCacheImpl @Inject constructor(
         val currentTime = System.currentTimeMillis()
         val expirationTime = (86400000).toLong()
         return appDatabase.cacheUpdateTimeDao().getCacheUpdateTime().toSingle(CacheUpdateTime(lastUpdateTime = 0))
-            .map {
-                currentTime - it.lastUpdateTime > expirationTime
-            }
+                .map {
+                    currentTime - it.lastUpdateTime > expirationTime
+                }
     }
 
 }

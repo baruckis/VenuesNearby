@@ -28,25 +28,25 @@ object FoursquareApiServiceFactory {
 
     fun createFoursquareApiService(isDebug: Boolean): FoursquareApiService {
         return createRetrofit(
-            API_FOURSQUARE_SERVICE_BASE_URL,
-            createOkHttpClient(isDebug),
-            Gson()
+                API_FOURSQUARE_SERVICE_BASE_URL,
+                createOkHttpClient(isDebug),
+                Gson()
         ).create(FoursquareApiService::class.java)
     }
 
     private fun createRetrofit(baseUrl: String, okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(okHttpClient)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
+                .baseUrl(baseUrl)
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
     }
 
     private fun createOkHttpClient(isDebug: Boolean): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(createHttpLoggingInterceptor(isDebug))
-            .build()
+                .addInterceptor(createHttpLoggingInterceptor(isDebug))
+                .build()
     }
 
     private fun createHttpLoggingInterceptor(isDebug: Boolean): HttpLoggingInterceptor {

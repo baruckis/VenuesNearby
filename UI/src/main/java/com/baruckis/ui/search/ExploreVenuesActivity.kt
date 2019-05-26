@@ -30,11 +30,12 @@ import com.baruckis.presentation.state.Resource
 import com.baruckis.presentation.state.Status
 import com.baruckis.ui.R
 import com.baruckis.ui.mapper.VenueUiMapper
+import com.baruckis.ui.utils.logConsoleVerbose
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_explore_venues.*
 import javax.inject.Inject
 
-class ExploreVenuesActivity: AppCompatActivity() {
+class ExploreVenuesActivity : AppCompatActivity() {
 
     private lateinit var exploreVenuesViewModel: ExploreVenuesViewModel
 
@@ -73,6 +74,8 @@ class ExploreVenuesActivity: AppCompatActivity() {
 
     private fun handlePresentationResourceStatus(dataResource: Resource<List<VenuePresentation>>) {
 
+        logConsoleVerbose("handlePresentationResourceStatus " + dataResource.status)
+
         when (dataResource.status) {
             Status.LOADING -> {
                 progress.visibility = View.VISIBLE
@@ -87,7 +90,7 @@ class ExploreVenuesActivity: AppCompatActivity() {
                 exploreVenuesRecyclerViewAdapter.setData(venuesUi)
 
             }
-            Status.ERROR ->{
+            Status.ERROR -> {
                 progress.visibility = View.GONE
                 Toast.makeText(this, "Error: ${dataResource.message}", Toast.LENGTH_LONG).show()
             }

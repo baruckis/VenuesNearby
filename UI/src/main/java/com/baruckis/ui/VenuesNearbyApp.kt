@@ -24,7 +24,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
 
-class VenuesNearbyApp: Application(), HasActivityInjector {
+class VenuesNearbyApp : Application(), HasActivityInjector {
 
     @Inject // It implements Dagger machinery of finding appropriate injector factory for a type.
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>

@@ -18,14 +18,13 @@ package com.baruckis.data.repository
 
 import com.baruckis.data.model.VenueEntity
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
 
 interface VenuesCache {
 
     fun clearVenuesNearby(): Completable
     fun saveVenuesNearby(venues: List<VenueEntity>): Completable
-    fun getVenuesNearby(placeName: String): Observable<List<VenueEntity>>
+    fun getVenuesNearby(placeName: String): Single<List<VenueEntity>>
     fun areVenuesNearbyCached(): Single<Boolean>
     fun setLastCacheTime(lastCache: Long): Completable
     fun isVenuesNearbyCacheExpired(): Single<Boolean>

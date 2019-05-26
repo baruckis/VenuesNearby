@@ -14,20 +14,9 @@
  * limitations under the License.
  */
 
-package com.baruckis.venuesnearby
-
-import org.junit.Test
-
-import org.junit.Assert.*
+package com.baruckis.ui.utils
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * Constants used throughout the UI module.
  */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
-}
+const val LOG_TAG = "VenuesNearby UI"

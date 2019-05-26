@@ -23,7 +23,8 @@ import com.baruckis.remote.service.FoursquareApiService
 import com.baruckis.remote.utils.API_FOURSQUARE_CLIENT_ID
 import com.baruckis.remote.utils.API_FOURSQUARE_CLIENT_SECRET
 import com.baruckis.remote.utils.API_FOURSQUARE_DATE_FORMAT_PATTERN
-import io.reactivex.Observable
+import com.baruckis.remote.utils.API_FOURSQUARE_GROUP_TYPE
+import io.reactivex.Single
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -33,17 +34,24 @@ class VenuesRemoteImpl @Inject constructor(
         private val apiResponseModelMapper: VenueRecommendationsApiResponseModelMapper
 ) : VenuesRemote {
 
-    override fun getVenuesNearby(placeName: String): Observable<List<VenueEntity>> {
+    override fun getVenuesNearby(placeName: String): Single<List<VenueEntity>> {
 
-        return apiService.getVenueRecommendations(
+        val response = apiService.getVenueRecommendations(
                 placeName,
                 API_FOURSQUARE_CLIENT_ID,
                 API_FOURSQUARE_CLIENT_SECRET,
                 getTodayDateFormatted(API_FOURSQUARE_DATE_FORMAT_PATTERN)
         )
-                .map { remote ->
-                    remote.response.groups.items.map { apiResponseModelMapper.mapFromApiResponseModel(it) }
-                }
+
+        val recommendedGroup = response.map { remote ->
+            remote.response.groups.first { group -> group.name == API_FOURSQUARE_GROUP_TYPE }
+        }
+
+        val venueEntities = recommendedGroup.map { group ->
+            group.items.map { item -> apiResponseModelMapper.mapFromApiResponseModel(item) }
+        }
+
+        return venueEntities
     }
 
     private fun getTodayDateFormatted(pattern: String): String {

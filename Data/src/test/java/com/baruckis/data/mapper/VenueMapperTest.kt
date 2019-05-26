@@ -28,7 +28,7 @@ class VenueMapperTest {
     @Test
     fun mapFromEntity() {
 
-        val entity = VenueEntity("4d1a11a6cc216ea884ff81d3","Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+        val entity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
         val model = mapper.mapFromEntity(entity)
 
         assertMapsDataCorrectly(entity, model)
@@ -37,7 +37,7 @@ class VenueMapperTest {
     @Test
     fun mapToEntity() {
 
-        val model = Venue("4d1a11a6cc216ea884ff81d3","Gedimino pr.", 54.68736449150992, 25.279981398558263)
+        val model = Venue("4d1a11a6cc216ea884ff81d3", "Gedimino pr.", 54.68736449150992, 25.279981398558263)
         val entity = mapper.mapToEntity(model)
 
         assertMapsDataCorrectly(entity, model)

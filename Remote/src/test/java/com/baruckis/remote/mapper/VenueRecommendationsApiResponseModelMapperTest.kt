@@ -28,7 +28,7 @@ class VenueRecommendationsApiResponseModelMapperTest {
     fun mapFromApiResponseModel() {
 
         val model = Item(
-            Item.Venue("4d1a11a6cc216ea884ff81d3", "Vingio parkas", Item.Venue.Location(54.68293703261666, 25.237655639648438))
+                Item.Venue("4d1a11a6cc216ea884ff81d3", "Vingio parkas", Item.Venue.Location(54.68293703261666, 25.237655639648438))
         )
         val entity = mapper.mapFromApiResponseModel(model)
 

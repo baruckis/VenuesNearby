@@ -25,12 +25,12 @@ import com.baruckis.presentation.mapper.VenuePresentationMapper
 import com.baruckis.presentation.model.VenuePresentation
 import com.baruckis.presentation.state.Resource
 import com.baruckis.presentation.state.Status
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
 class ExploreVenuesViewModel @Inject constructor(
-    private val getVenuesNearby: GetVenuesNearby,
-    private val mapper: VenuePresentationMapper
+        private val getVenuesNearby: GetVenuesNearby,
+        private val mapper: VenuePresentationMapper
 ) : ViewModel() {
 
     private val venuesNearbyMutableLiveData: MutableLiveData<Resource<List<VenuePresentation>>> = MutableLiveData()
@@ -51,18 +51,15 @@ class ExploreVenuesViewModel @Inject constructor(
     }
 
 
-    inner class VenuesSubscriber : DisposableObserver<List<Venue>>() {
-
-        override fun onNext(item: List<Venue>) {
+    inner class VenuesSubscriber : DisposableSingleObserver<List<Venue>>() {
+        override fun onSuccess(item: List<Venue>) {
             venuesNearbyMutableLiveData.postValue(
-                Resource(
-                    Status.SUCCESS,
-                    item.map { domain -> mapper.mapToPresentation(domain) }, null
-                )
+                    Resource(
+                            Status.SUCCESS,
+                            item.map { domain -> mapper.mapToPresentation(domain) }, null
+                    )
             )
         }
-
-        override fun onComplete() {}
 
         override fun onError(e: Throwable) {
             venuesNearbyMutableLiveData.postValue(Resource(Status.ERROR, null, e.localizedMessage))

@@ -22,7 +22,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "cache_update_time")
 data class CacheUpdateTime(
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = -1,
-    var lastUpdateTime: Long
+        @PrimaryKey(autoGenerate = true)
+        var id: Int = -1,
+        var lastUpdateTime: Long
 )
