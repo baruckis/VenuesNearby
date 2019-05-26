@@ -26,23 +26,24 @@ import com.baruckis.remote.utils.API_FOURSQUARE_DATE_FORMAT_PATTERN
 import io.reactivex.Observable
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class VenuesRemoteImpl(
-    private val apiService: FoursquareApiService,
-    private val apiResponseModelMapper: VenueRecommendationsApiResponseModelMapper
+class VenuesRemoteImpl @Inject constructor(
+        private val apiService: FoursquareApiService,
+        private val apiResponseModelMapper: VenueRecommendationsApiResponseModelMapper
 ) : VenuesRemote {
 
     override fun getVenuesNearby(placeName: String): Observable<List<VenueEntity>> {
 
         return apiService.getVenueRecommendations(
-            placeName,
-            API_FOURSQUARE_CLIENT_ID,
-            API_FOURSQUARE_CLIENT_SECRET,
-            getTodayDateFormatted(API_FOURSQUARE_DATE_FORMAT_PATTERN)
+                placeName,
+                API_FOURSQUARE_CLIENT_ID,
+                API_FOURSQUARE_CLIENT_SECRET,
+                getTodayDateFormatted(API_FOURSQUARE_DATE_FORMAT_PATTERN)
         )
-            .map { remote ->
-                remote.response.groups.items.map { apiResponseModelMapper.mapFromApiResponseModel(it) }
-            }
+                .map { remote ->
+                    remote.response.groups.items.map { apiResponseModelMapper.mapFromApiResponseModel(it) }
+                }
     }
 
     private fun getTodayDateFormatted(pattern: String): String {

@@ -22,6 +22,7 @@ dependencies {
 
     compile project(':Data')
 
+    implementation remoteDependencies.javaxInject
     implementation remoteDependencies.kotlin
     implementation remoteDependencies.okHttp
     implementation remoteDependencies.okHttpLogger

@@ -74,6 +74,7 @@ buildscript {
         ]
 
         remoteDependencies = [
+                javaxInject:            "javax.inject:javax.inject:${javax_inject_version}",
                 kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
                 okHttp:                 "com.squareup.okhttp3:okhttp:${okhttp_version}",
                 okHttpLogger:           "com.squareup.okhttp3:logging-interceptor:${okhttp_version}",
@@ -132,7 +133,9 @@ buildscript {
                 kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
                 recyclerView:           "androidx.recyclerview:recyclerview:${recyclerview_version}",
                 rxAndroid:              "io.reactivex.rxjava2:rxandroid:${rx_android_version}",
-                rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
+                rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}",
+                lifecycleCompiler:      "androidx.lifecycle:lifecycle-compiler:${lifecycle_version}",
+                lifecycleExtensions:    "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}"
         ]
 
         uiTestDependencies = [

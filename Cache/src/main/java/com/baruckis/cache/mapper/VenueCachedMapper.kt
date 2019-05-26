@@ -18,8 +18,9 @@ package com.baruckis.cache.mapper
 
 import com.baruckis.cache.model.VenueCached
 import com.baruckis.data.model.VenueEntity
+import javax.inject.Inject
 
-class VenueCachedMapper: CacheMapper<VenueCached, VenueEntity> {
+class VenueCachedMapper @Inject constructor() : CacheMapper<VenueCached, VenueEntity> {
 
     override fun mapFromCached(cached: VenueCached): VenueEntity {
         return VenueEntity(cached.id, cached.name, cached.lattitude, cached.longitude)

@@ -16,6 +16,7 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions' // For synthetic view binding.
 apply plugin: 'kotlin-kapt' // For annotation processing.
 
 
@@ -70,9 +71,11 @@ dependencies {
     implementation uiDependencies.recyclerView
     implementation uiDependencies.rxAndroid
     implementation uiDependencies.rxKotlin
+    implementation uiDependencies.lifecycleExtensions
 
     kapt uiDependencies.daggerCompiler
     kapt uiDependencies.daggerProcessor
+    kapt uiDependencies.lifecycleCompiler
 
     testImplementation uiTestDependencies.kotlinJUnit
     testImplementation uiTestDependencies.mockitoKotlin

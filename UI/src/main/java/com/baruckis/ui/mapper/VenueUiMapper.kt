@@ -18,8 +18,9 @@ package com.baruckis.ui.mapper
 
 import com.baruckis.presentation.model.VenuePresentation
 import com.baruckis.ui.model.VenueUi
+import javax.inject.Inject
 
-class VenueUiMapper(): UiMapper<VenuePresentation, VenueUi> {
+class VenueUiMapper @Inject constructor(): UiMapper<VenuePresentation, VenueUi> {
 
     override fun mapToUi(presentation: VenuePresentation): VenueUi {
         return VenueUi(presentation.id, presentation.name, presentation.lattitude, presentation.longitude)

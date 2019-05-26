@@ -21,8 +21,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.baruckis.ui.databinding.ListItemVenueBinding
 import com.baruckis.ui.model.VenueUi
+import javax.inject.Inject
 
-class ExploreVenuesRecyclerViewAdapter(): RecyclerView.Adapter<ExploreVenuesRecyclerViewAdapter.BindingViewHolder>() {
+class ExploreVenuesRecyclerViewAdapter @Inject constructor() :
+    RecyclerView.Adapter<ExploreVenuesRecyclerViewAdapter.BindingViewHolder>() {
 
     private var dataList: List<VenueUi> = ArrayList()
 
@@ -39,8 +41,13 @@ class ExploreVenuesRecyclerViewAdapter(): RecyclerView.Adapter<ExploreVenuesRecy
 
     override fun getItemCount(): Int = dataList.count()
 
+    fun setData(newDataList: List<VenueUi>) {
+        dataList = newDataList
+        notifyDataSetChanged()
+    }
 
-    inner class BindingViewHolder(private var binding: ListItemVenueBinding): RecyclerView.ViewHolder(binding.root) {
+
+    inner class BindingViewHolder(private var binding: ListItemVenueBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(venueUi: VenueUi) {
 

@@ -47,7 +47,7 @@ class GetVenuesNearbyTest {
     fun getVenuesCompletes() {
         stubGetVenuesNearby(Observable.just(makeVenuesList()))
         val testObserver =
-            getVenuesNearby.buildUseCaseObservable(GetVenuesNearby.Params.forVenue("London")).test()
+            getVenuesNearby.buildUseCaseObservable(GetVenuesNearby.Params.search("London")).test()
         testObserver.assertComplete()
     }
 
@@ -56,7 +56,7 @@ class GetVenuesNearbyTest {
         val venues = makeVenuesList()
         stubGetVenuesNearby(Observable.just(venues))
         val testObserver =
-            getVenuesNearby.buildUseCaseObservable(GetVenuesNearby.Params.forVenue("Vilnius")).test()
+            getVenuesNearby.buildUseCaseObservable(GetVenuesNearby.Params.search("Vilnius")).test()
         testObserver.assertValue(venues)
     }
 
