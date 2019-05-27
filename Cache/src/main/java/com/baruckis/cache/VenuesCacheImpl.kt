@@ -60,7 +60,7 @@ class VenuesCacheImpl @Inject constructor(
         return Single.zip(
             appDatabase.cacheUpdateTimeDao().getCacheInfo().toSingle(
                 CacheInfo(lastUpdateTime = 0, nearPlace = "")
-            ).map { it.nearPlace == placeName },
+            ).map { it.nearPlace.equals(placeName, ignoreCase = true) },
             appDatabase.venueCachedDao().getVenueRecommendations().isEmpty.map { !it },
             BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { isCorrectNearPlaceCached, areAnyVenuesCached ->
                 Pair(isCorrectNearPlaceCached, areAnyVenuesCached)

@@ -17,6 +17,8 @@
 <resources>
     <string name="app_name">"VenuesNearby"</string>
 
+    <string name="app_subtitle">"Recommended places: %1$s"</string>
+
     <string name="action_search">"Search"</string>
 
 </resources>

@@ -29,8 +29,8 @@ import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
 class ExploreVenuesViewModel @Inject constructor(
-        private val getVenuesNearby: GetVenuesNearby,
-        private val mapper: VenuePresentationMapper
+    private val getVenuesNearby: GetVenuesNearby,
+    private val mapper: VenuePresentationMapper
 ) : ViewModel() {
 
     private val venuesNearbyMutableLiveData: MutableLiveData<Resource<List<VenuePresentation>>> = MutableLiveData()
@@ -54,10 +54,10 @@ class ExploreVenuesViewModel @Inject constructor(
     inner class VenuesSubscriber : DisposableSingleObserver<List<Venue>>() {
         override fun onSuccess(item: List<Venue>) {
             venuesNearbyMutableLiveData.postValue(
-                    Resource(
-                            Status.SUCCESS,
-                            item.map { domain -> mapper.mapToPresentation(domain) }, null
-                    )
+                Resource(
+                    Status.SUCCESS,
+                    item.map { domain -> mapper.mapToPresentation(domain) }, null
+                )
             )
         }
 

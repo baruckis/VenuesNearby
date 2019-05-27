@@ -56,6 +56,13 @@ class ExploreVenuesActivity : AppCompatActivity() {
     private var searchMenuItem: MenuItem? = null
     private var searchView: SearchView? = null
 
+    private var queryPlaceName: String? = null
+
+
+    companion object {
+        private const val QUERY_PLACE_NAME = "query_place_name"
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +77,8 @@ class ExploreVenuesActivity : AppCompatActivity() {
         // Obtain ViewModel from ViewModelProviders, using this activity as LifecycleOwner.
         exploreVenuesViewModel = ViewModelProviders.of(this, viewModelFactory).get(ExploreVenuesViewModel::class.java)
 
+        queryPlaceName = savedInstanceState?.getString(QUERY_PLACE_NAME)
+
         exploreVenuesViewModel.getVenuesNearbyLiveData().observe(this, Observer { resource ->
             handlePresentationResourceStatus(resource)
         })
@@ -80,6 +89,12 @@ class ExploreVenuesActivity : AppCompatActivity() {
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        outState?.putString(QUERY_PLACE_NAME, queryPlaceName)
+        super.onSaveInstanceState(outState)
+    }
+
+
     private fun handlePresentationResourceStatus(dataResource: Resource<List<VenuePresentation>>) {
 
         logConsoleVerbose("handlePresentationResourceStatus " + dataResource.status)
@@ -88,10 +103,16 @@ class ExploreVenuesActivity : AppCompatActivity() {
             Status.LOADING -> {
                 progress.visibility = View.VISIBLE
                 recyclerview.visibility = View.GONE
+
+                supportActionBar?.subtitle = ""
             }
             Status.SUCCESS -> {
                 progress.visibility = View.GONE
                 recyclerview.visibility = View.VISIBLE
+
+                if (!queryPlaceName.isNullOrBlank()) {
+                    supportActionBar?.subtitle = StringBuilder(getString(R.string.app_subtitle, queryPlaceName))
+                }
 
                 val venuesUi = dataResource.data?.map { uiMapper.mapToUi(it) } ?: emptyList()
 
@@ -130,6 +151,7 @@ class ExploreVenuesActivity : AppCompatActivity() {
         override fun onQueryTextSubmit(query: String?): Boolean {
             query?.let {
                 exploreVenuesViewModel.fetchVenuesNearby(it)
+                queryPlaceName = it
             }
             return true
         }
