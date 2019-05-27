@@ -48,7 +48,7 @@ class VenuesRemoteDataStoreTest {
 
     @Test(expected = UnsupportedOperationException::class)
     fun saveVenuesNearby() {
-        venuesRemoteDataStore.saveVenuesNearby(emptyList()).test()
+        venuesRemoteDataStore.saveVenuesNearby("Gedimino pr.", emptyList()).test()
     }
 
     @Test(expected = UnsupportedOperationException::class)

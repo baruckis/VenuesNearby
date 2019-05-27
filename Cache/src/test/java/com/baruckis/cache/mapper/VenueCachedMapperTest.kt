@@ -37,7 +37,7 @@ class VenueCachedMapperTest {
     private fun assertMapsDataCorrectly(model: VenueCached, entity: VenueEntity) {
         assertEquals(model.id, entity.id)
         assertEquals(model.name, entity.name)
-        assertEquals(model.lattitude, entity.lattitude)
+        assertEquals(model.latitude, entity.lattitude)
         assertEquals(model.longitude, entity.longitude)
     }
 

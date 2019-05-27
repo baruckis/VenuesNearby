@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.baruckis.cache.model
+package com.baruckis.cache.utils
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+const val APP_DATABASE = "venues_nearby_db"
 
-@Entity(tableName = "cache_update_time")
-data class CacheUpdateTime(
+const val CACHE_INFO_TABLE = "cache_info_table"
+const val VENUE_CACHED_TABLE = "venue_recommendations_table"
 
-        @PrimaryKey(autoGenerate = true)
-        var id: Int = -1,
-        var lastUpdateTime: Long
-)
+const val VENUE_CACHED_ID = "venue_id"
+
+const val CACHE_EXPIRATION_TIME_MILLISECONDS = 86400000 // 1 day in milliseconds.

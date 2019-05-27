@@ -21,15 +21,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.baruckis.cache.model.VenueCached
+import com.baruckis.cache.utils.VENUE_CACHED_TABLE
 import io.reactivex.Flowable
 
 @Dao
 abstract class VenueCachedDao {
 
-    @Query("SELECT * FROM venue_recommendations")
+    @Query("SELECT * FROM $VENUE_CACHED_TABLE")
     abstract fun getVenueRecommendations(): Flowable<List<VenueCached>>
 
-    @Query("DELETE FROM venue_recommendations")
+    @Query("DELETE FROM $VENUE_CACHED_TABLE")
     abstract fun deleteVenueRecommendations()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

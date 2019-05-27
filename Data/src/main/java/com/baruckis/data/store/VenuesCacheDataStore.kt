@@ -31,8 +31,8 @@ open class VenuesCacheDataStore @Inject constructor(
         return venuesCache.getVenuesNearby(placeName)
     }
 
-    override fun saveVenuesNearby(venues: List<VenueEntity>): Completable {
-        return venuesCache.saveVenuesNearby(venues).andThen(venuesCache.setLastCacheTime(System.currentTimeMillis()))
+    override fun saveVenuesNearby(placeName: String, venues: List<VenueEntity>): Completable {
+        return venuesCache.saveVenuesNearby(venues).andThen(venuesCache.setLastCacheInfo(System.currentTimeMillis(), placeName))
     }
 
     override fun clearVenuesNearby(): Completable {

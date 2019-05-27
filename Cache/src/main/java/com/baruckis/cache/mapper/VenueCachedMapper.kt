@@ -23,7 +23,7 @@ import javax.inject.Inject
 class VenueCachedMapper @Inject constructor() : CacheMapper<VenueCached, VenueEntity> {
 
     override fun mapFromCached(cached: VenueCached): VenueEntity {
-        return VenueEntity(cached.id, cached.name, cached.lattitude, cached.longitude)
+        return VenueEntity(cached.id, cached.name, cached.latitude, cached.longitude)
     }
 
     override fun mapToCached(entity: VenueEntity): VenueCached {

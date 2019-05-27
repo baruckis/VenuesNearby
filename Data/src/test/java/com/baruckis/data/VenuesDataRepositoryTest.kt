@@ -59,6 +59,8 @@ class VenuesDataRepositoryTest {
 
         stubGetCacheDataStore()
 
+        stubClearVenuesNearby(Completable.complete())
+
         stubSaveVenuesNearby(Completable.complete())
 
         stubMapFromEntity(venueModel, venueEntity)
@@ -82,7 +84,7 @@ class VenuesDataRepositoryTest {
 
 
     private fun stubAreVenuesNearbyCached(single: Single<Boolean>) {
-        whenever(venuesCache.areVenuesNearbyCached())
+        whenever(venuesCache.areVenuesNearbyCached(any()))
                 .thenReturn(single)
     }
 
@@ -106,8 +108,13 @@ class VenuesDataRepositoryTest {
                 .thenReturn(venuesDataStore)
     }
 
+    private fun stubClearVenuesNearby(completable: Completable) {
+        whenever(venuesDataStore.clearVenuesNearby())
+            .thenReturn(completable)
+    }
+
     private fun stubSaveVenuesNearby(completable: Completable) {
-        whenever(venuesDataStore.saveVenuesNearby(any()))
+        whenever(venuesDataStore.saveVenuesNearby(any(), any()))
                 .thenReturn(completable)
     }
 

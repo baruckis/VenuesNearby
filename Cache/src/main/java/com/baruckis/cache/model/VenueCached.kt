@@ -19,15 +19,17 @@ package com.baruckis.cache.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.baruckis.cache.utils.VENUE_CACHED_ID
+import com.baruckis.cache.utils.VENUE_CACHED_TABLE
 
-@Entity(tableName = "venue_recommendations")
+@Entity(tableName = VENUE_CACHED_TABLE)
 data class VenueCached(
 
-        @PrimaryKey
-        @ColumnInfo(name = "venue_id")
-        var id: String,
-        var name: String,
-        var lattitude: Double,
-        var longitude: Double
+    @PrimaryKey
+    @ColumnInfo(name = VENUE_CACHED_ID)
+    var id: String,
+    var name: String,
+    var latitude: Double,
+    var longitude: Double
 
 )

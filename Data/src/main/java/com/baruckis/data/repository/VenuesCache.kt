@@ -25,8 +25,8 @@ interface VenuesCache {
     fun clearVenuesNearby(): Completable
     fun saveVenuesNearby(venues: List<VenueEntity>): Completable
     fun getVenuesNearby(placeName: String): Single<List<VenueEntity>>
-    fun areVenuesNearbyCached(): Single<Boolean>
-    fun setLastCacheTime(lastCache: Long): Completable
+    fun areVenuesNearbyCached(placeName: String): Single<Boolean>
+    fun setLastCacheInfo(lastUpdateTime: Long, nearPlace: String): Completable
     fun isVenuesNearbyCacheExpired(): Single<Boolean>
 
 }

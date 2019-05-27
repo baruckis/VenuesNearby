@@ -50,7 +50,7 @@ class VenuesCacheDataStoreTest {
     @Test
     fun saveVenuesNearbyCompletes() {
         stubSaveVenuesNearby(Completable.complete())
-        val testObserver = venuesCacheDataStore.saveVenuesNearby(listOf(venueEntity)).test()
+        val testObserver = venuesCacheDataStore.saveVenuesNearby("Trafalgar Sq", listOf(venueEntity)).test()
         testObserver.assertComplete()
     }
 
@@ -68,7 +68,7 @@ class VenuesCacheDataStoreTest {
     }
 
     private fun stubSaveVenuesNearby(completable: Completable) {
-        whenever(venuesCache.setLastCacheTime(any()))
+        whenever(venuesCache.setLastCacheInfo(any(), any()))
                 .thenReturn(completable)
 
         whenever(venuesCache.saveVenuesNearby(any()))

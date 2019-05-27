@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.baruckis.data.repository
+package com.baruckis.cache.model
 
-import com.baruckis.data.model.VenueEntity
-import io.reactivex.Completable
-import io.reactivex.Single
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.baruckis.cache.utils.CACHE_INFO_TABLE
 
-interface VenuesDataStore {
+@Entity(tableName = CACHE_INFO_TABLE)
+data class CacheInfo(
 
-    fun getVenuesNearby(placeName: String): Single<List<VenueEntity>>
-
-    fun saveVenuesNearby(placeName: String, venues: List<VenueEntity>): Completable
-
-    fun clearVenuesNearby(): Completable
-
-}
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = -1,
+    var lastUpdateTime: Long,
+    var nearPlace: String
+)

@@ -20,21 +20,23 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.baruckis.cache.model.CacheUpdateTime
+import com.baruckis.cache.model.CacheInfo
 import com.baruckis.cache.model.VenueCached
+import com.baruckis.cache.utils.APP_DATABASE
 
-@Database(entities = [VenueCached::class, CacheUpdateTime::class], version = 1)
+@Database(entities = [VenueCached::class, CacheInfo::class], version = 1)
 abstract class AppDatabase() : RoomDatabase() {
 
     abstract fun venueCachedDao(): VenueCachedDao
 
-    abstract fun cacheUpdateTimeDao(): CacheUpdateTimeDao
+    abstract fun cacheUpdateTimeDao(): CacheInfoDao
 
 
     // The AppDatabase a singleton to prevent having multiple instances of the database opened at the same time.
     companion object {
 
-        // Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
+        // Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field
+        // are immediately made visible to other threads.
         @Volatile
         private var instance: AppDatabase? = null
 
@@ -47,7 +49,7 @@ abstract class AppDatabase() : RoomDatabase() {
 
         // Creates the database.
         private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, "venues_nearby_db").build()
+            return Room.databaseBuilder(context, AppDatabase::class.java, APP_DATABASE).build()
         }
 
     }

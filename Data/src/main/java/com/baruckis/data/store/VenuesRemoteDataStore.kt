@@ -31,7 +31,7 @@ open class VenuesRemoteDataStore @Inject constructor(
         return venuesRemote.getVenuesNearby(placeName)
     }
 
-    override fun saveVenuesNearby(venues: List<VenueEntity>): Completable {
+    override fun saveVenuesNearby(placeName: String, venues: List<VenueEntity>): Completable {
         throw UnsupportedOperationException("Saving venues isn't supported here...")
     }
 

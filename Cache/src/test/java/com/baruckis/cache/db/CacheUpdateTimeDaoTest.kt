@@ -19,7 +19,7 @@ package com.baruckis.cache.db
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.baruckis.cache.model.CacheUpdateTime
+import com.baruckis.cache.model.CacheInfo
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
@@ -50,11 +50,11 @@ class CacheUpdateTimeDaoTest {
     @Test
     fun replaceAndGetCacheUpdateTime() {
 
-        val cacheUpdateTime = CacheUpdateTime(-1, System.currentTimeMillis())
+        val cacheUpdateTime = CacheInfo(-1, System.currentTimeMillis(), "")
 
-        database.cacheUpdateTimeDao().replaceCacheUpdateTime(cacheUpdateTime)
+        database.cacheUpdateTimeDao().replaceCacheInfo(cacheUpdateTime)
 
-        val testObserver = database.cacheUpdateTimeDao().getCacheUpdateTime().test()
+        val testObserver = database.cacheUpdateTimeDao().getCacheInfo().test()
         testObserver.assertValue(cacheUpdateTime)
     }
 

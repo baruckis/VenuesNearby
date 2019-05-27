@@ -78,15 +78,15 @@ class VenuesCacheImplTest {
     @Test
     fun areVenuesNearbyCached() {
         val venueEntities = listOf(TestDataFactory.createVenueEntity())
-        cache.saveVenuesNearby(venueEntities).test()
+        cache.saveVenuesNearby(venueEntities).andThen(cache.setLastCacheInfo(System.currentTimeMillis(), "Vilnius")).test()
 
-        val testObserver = cache.areVenuesNearbyCached().test()
+        val testObserver = cache.areVenuesNearbyCached("Vilnius").test()
         testObserver.assertValue(true)
     }
 
     @Test
     fun setLastCacheTime() {
-        val testObserver = cache.setLastCacheTime(100).test()
+        val testObserver = cache.setLastCacheInfo(100, "").test()
         testObserver.assertComplete()
     }
 
@@ -98,7 +98,7 @@ class VenuesCacheImplTest {
 
     @Test
     fun isVenuesNearbyCacheNotExpired() {
-        cache.setLastCacheTime(System.currentTimeMillis()).test()
+        cache.setLastCacheInfo(System.currentTimeMillis(), "").test()
         val testObserver = cache.isVenuesNearbyCacheExpired().test()
         testObserver.assertValue(false)
     }

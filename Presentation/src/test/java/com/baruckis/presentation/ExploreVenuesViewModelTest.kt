@@ -45,7 +45,7 @@ class ExploreVenuesViewModelTest {
     @Test
     fun fetchVenuesNearbyExecute() {
 
-        viewModel.fetchVenuesNearby()
+        viewModel.fetchVenuesNearby("Vilnius")
 
         verify(getVenuesNearby, times(1)).execute(any(), eq(GetVenuesNearby.Params.search("Vilnius")))
     }
@@ -58,7 +58,7 @@ class ExploreVenuesViewModelTest {
 
         whenever(mapper.mapToPresentation(venues[0])).thenReturn(venuePresentations[0])
 
-        viewModel.fetchVenuesNearby()
+        viewModel.fetchVenuesNearby("Vilnius")
 
         verify(getVenuesNearby).execute(captor.capture(), eq(GetVenuesNearby.Params.search("Vilnius")))
         captor.firstValue.onSuccess(venues)
@@ -71,7 +71,7 @@ class ExploreVenuesViewModelTest {
 
         val errorMsg = TestDataFactory.createErrorMessage()
 
-        viewModel.fetchVenuesNearby()
+        viewModel.fetchVenuesNearby("Vilnius")
 
         verify(getVenuesNearby).execute(captor.capture(), eq(GetVenuesNearby.Params.search("Vilnius")))
         captor.firstValue.onError(RuntimeException(errorMsg))

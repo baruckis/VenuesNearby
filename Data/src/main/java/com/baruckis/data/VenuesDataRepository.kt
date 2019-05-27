@@ -26,32 +26,37 @@ import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 class VenuesDataRepository @Inject constructor(
-        private val mapper: VenueMapper,
-        private val cache: VenuesCache,
-        private val storeFactory: VenuesDataStoreFactory
+    private val mapper: VenueMapper,
+    private val cache: VenuesCache,
+    private val storeFactory: VenuesDataStoreFactory
 ) : VenuesDomainRepository {
 
     override fun getVenuesNearby(placeName: String): Single<List<Venue>> {
 
         return Single.zip(
-                cache.areVenuesNearbyCached(),
-                cache.isVenuesNearbyCacheExpired(),
-                BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { areCached, isExpired ->
-                    Pair(areCached, isExpired)
-                }
+            cache.areVenuesNearbyCached(placeName),
+            cache.isVenuesNearbyCacheExpired(),
+            BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { areCached, isExpired ->
+                Pair(areCached, isExpired)
+            }
         ).flatMap {
             storeFactory.getDataStore(it.first, it.second).getVenuesNearby(placeName)
         }
-                .flatMap { venueEntities ->
-                    storeFactory.getCacheDataStore()
-                            .saveVenuesNearby(venueEntities)
-                            .andThen(Single.just(venueEntities))
+            .flatMap { venueEntities ->
+
+                storeFactory.getCacheDataStore().clearVenuesNearby()
+                    .andThen(
+                        storeFactory.getCacheDataStore().saveVenuesNearby(placeName, venueEntities)
+                            .andThen(
+                                Single.just(venueEntities)
+                            )
+                    )
+            }
+            .map { venueEntity ->
+                venueEntity.map {
+                    mapper.mapFromEntity(it)
                 }
-                .map { venueEntity ->
-                    venueEntity.map {
-                        mapper.mapFromEntity(it)
-                    }
-                }
+            }
     }
 
 }

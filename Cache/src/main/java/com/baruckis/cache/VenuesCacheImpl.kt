@@ -18,16 +18,18 @@ package com.baruckis.cache
 
 import com.baruckis.cache.db.AppDatabase
 import com.baruckis.cache.mapper.VenueCachedMapper
-import com.baruckis.cache.model.CacheUpdateTime
+import com.baruckis.cache.model.CacheInfo
+import com.baruckis.cache.utils.CACHE_EXPIRATION_TIME_MILLISECONDS
 import com.baruckis.data.model.VenueEntity
 import com.baruckis.data.repository.VenuesCache
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 class VenuesCacheImpl @Inject constructor(
-        private val appDatabase: AppDatabase,
-        private val mapper: VenueCachedMapper
+    private val appDatabase: AppDatabase,
+    private val mapper: VenueCachedMapper
 ) : VenuesCache {
 
     override fun clearVenuesNearby(): Completable {
@@ -42,7 +44,7 @@ class VenuesCacheImpl @Inject constructor(
 
         return Completable.defer {
             appDatabase.venueCachedDao()
-                    .replaceVenueRecommendations(venues.map { entity -> mapper.mapToCached(entity) })
+                .replaceVenueRecommendations(venues.map { entity -> mapper.mapToCached(entity) })
             Completable.complete()
         }
     }
@@ -50,29 +52,44 @@ class VenuesCacheImpl @Inject constructor(
     override fun getVenuesNearby(placeName: String): Single<List<VenueEntity>> {
 
         return appDatabase.venueCachedDao().getVenueRecommendations().firstOrError()
-                .map { it.map { cached -> mapper.mapFromCached(cached) } }
+            .map { it.map { cached -> mapper.mapFromCached(cached) } }
     }
 
-    override fun areVenuesNearbyCached(): Single<Boolean> {
+    override fun areVenuesNearbyCached(placeName: String): Single<Boolean> {
 
-        return appDatabase.venueCachedDao().getVenueRecommendations().isEmpty.map { !it }
+        return Single.zip(
+            appDatabase.cacheUpdateTimeDao().getCacheInfo().toSingle(
+                CacheInfo(lastUpdateTime = 0, nearPlace = "")
+            ).map { it.nearPlace == placeName },
+            appDatabase.venueCachedDao().getVenueRecommendations().isEmpty.map { !it },
+            BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { isCorrectNearPlaceCached, areAnyVenuesCached ->
+                Pair(isCorrectNearPlaceCached, areAnyVenuesCached)
+            }
+        ).flatMap {
+            Single.just(it.first && it.second)
+        }
+
     }
 
-    override fun setLastCacheTime(lastCache: Long): Completable {
+    override fun setLastCacheInfo(lastUpdateTime: Long, nearPlace: String): Completable {
 
         return Completable.defer {
-            appDatabase.cacheUpdateTimeDao().replaceCacheUpdateTime(CacheUpdateTime(lastUpdateTime = lastCache))
+            appDatabase.cacheUpdateTimeDao().replaceCacheInfo(
+                CacheInfo(lastUpdateTime = lastUpdateTime, nearPlace = nearPlace)
+            )
             Completable.complete()
         }
     }
 
     override fun isVenuesNearbyCacheExpired(): Single<Boolean> {
         val currentTime = System.currentTimeMillis()
-        val expirationTime = (86400000).toLong()
-        return appDatabase.cacheUpdateTimeDao().getCacheUpdateTime().toSingle(CacheUpdateTime(lastUpdateTime = 0))
-                .map {
-                    currentTime - it.lastUpdateTime > expirationTime
-                }
+        val expirationTime = (CACHE_EXPIRATION_TIME_MILLISECONDS).toLong()
+        return appDatabase.cacheUpdateTimeDao().getCacheInfo().toSingle(
+            CacheInfo(lastUpdateTime = 0, nearPlace = "")
+        )
+            .map {
+                currentTime - it.lastUpdateTime > expirationTime
+            }
     }
 
 }
