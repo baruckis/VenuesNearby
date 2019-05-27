@@ -16,10 +16,15 @@
 
 package com.baruckis.ui.search
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -48,6 +53,9 @@ class ExploreVenuesActivity : AppCompatActivity() {
     @Inject
     lateinit var uiMapper: VenueUiMapper
 
+    private var searchMenuItem: MenuItem? = null
+    private var searchView: SearchView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +75,7 @@ class ExploreVenuesActivity : AppCompatActivity() {
         })
 
         button.setOnClickListener {
-            exploreVenuesViewModel.fetchVenuesNearby()
+            exploreVenuesViewModel.fetchVenuesNearby("Vilnius")
         }
 
     }
@@ -94,6 +102,40 @@ class ExploreVenuesActivity : AppCompatActivity() {
                 progress.visibility = View.GONE
                 Toast.makeText(this, "Error: ${dataResource.message}", Toast.LENGTH_LONG).show()
             }
+        }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.menu_search, menu)
+
+        // Associate searchable configuration with the SearchView.
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+
+        searchMenuItem = menu?.findItem(R.id.search)
+
+        searchView = searchMenuItem?.actionView as SearchView
+        searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView?.maxWidth = Integer.MAX_VALUE // Expand to full width, to have close button set to the right side.
+        searchView?.setOnQueryTextListener(searchListener)
+
+        return true
+    }
+
+    // This listener reacts to text submit inside search area. We expect to get new search results
+    // each time when we submit a query for the place.
+    private val searchListener = object : SearchView.OnQueryTextListener {
+
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            query?.let {
+                exploreVenuesViewModel.fetchVenuesNearby(it)
+            }
+            return true
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+            return false
         }
 
     }

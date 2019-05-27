@@ -18,7 +18,9 @@ package com.baruckis.ui
 
 import android.app.Activity
 import android.app.Application
+import com.baruckis.presentation.BuildConfig
 import com.baruckis.ui.di.DaggerAppComponent
+import com.facebook.stetho.Stetho
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -31,6 +33,10 @@ class VenuesNearbyApp : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this)
+        }
 
         // Here we initialize Dagger. DaggerAppComponent is auto-generated from AppComponent.
         DaggerAppComponent.builder().application(this).build().inject(this)

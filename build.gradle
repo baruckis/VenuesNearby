@@ -29,33 +29,36 @@ buildscript {
         android_build_tools_version = "28.0.3"
 
         // Libraries
-        app_compat_version = '1.0.2'
         // Adds support for the Action Bar user interface design pattern.
-        constraint_layout_version = '1.1.3'
+        app_compat_version = '1.0.2'
         // ViewGroup which allows you to position and size widgets in a flexible way.
-        dagger_version = '2.22.1'
+        constraint_layout_version = '1.1.3'
         // Fully static, compile-time dependency injection framework for both Java and Android.
+        dagger_version = '2.22.1'
         javax_annotation_version = '1.3.2'  // Common Annotations for the JavaTM Platform API.
         javax_inject_version = '1'          // The Javax Inject API.
         lifecycle_version = '2.0.0'
-        okhttp_version = '3.14.2'
         // An HTTP & HTTP/2 client for Android and Java applications.
+        okhttp_version = '3.14.2'
         retrofit_version = '2.5.0'          // HTTP client Retrofit.
         robolectric_version = '4.2.1'
         // Robolectric is the industry-standard unit testing framework for Android.
-        room_version = "2.0.0"              // Room is a database object mapping library.
-        recyclerview_version = "1.0.0"
+        room_version = '2.0.0'              // Room is a database object mapping library.
         // Flexible view for providing a limited window into a large data set.
-        rx_android_version = "2.1.1"        // Reactive extensions for Android.
+        recyclerview_version = '1.0.0'
+        rx_android_version = '2.1.1'        // Reactive extensions for Android.
         rx_kotlin_version = '2.3.0'         // RxKotlin.
+        // Facebook's Stetho project enables you to use Chrome debugging tools to troubleshoot
+        // network traffic, database files, and view layouts.
+        stetho_version = '1.5.1'
 
         // Testing
         arch_testing = "2.0.0"
         junit_version = '4.12'
         assertj_version = '3.12.2'          // Rich and fluent assertions for testing for Java.
         mockito_kotlin_version = '2.1.0'
-        test_core = '1.0.0'
         // The AndroidX Test Library provides an extensive framework for testing Android apps.
+        test_core = '1.0.0'
         test_runner_version = '1.1.1'       // Android testing library's runner.
 
 
@@ -117,9 +120,9 @@ buildscript {
         presentationDependencies = [
                 javaxInject        : "javax.inject:javax.inject:${javax_inject_version}",
                 kotlin             : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
-                rxKotlin           : "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}",
                 lifecycleCompiler  : "androidx.lifecycle:lifecycle-compiler:${lifecycle_version}",
-                lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}"
+                lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}",
+                rxKotlin           : "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}"
         ]
 
         presentationTestDependencies = [
@@ -138,11 +141,12 @@ buildscript {
                 daggerSupport      : "com.google.dagger:dagger-android-support:${dagger_version}",
                 javaxInject        : "javax.inject:javax.inject:${javax_inject_version}",
                 kotlin             : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
+                lifecycleCompiler  : "androidx.lifecycle:lifecycle-compiler:${lifecycle_version}",
+                lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}",
                 recyclerView       : "androidx.recyclerview:recyclerview:${recyclerview_version}",
                 rxAndroid          : "io.reactivex.rxjava2:rxandroid:${rx_android_version}",
                 rxKotlin           : "io.reactivex.rxjava2:rxkotlin:${rx_kotlin_version}",
-                lifecycleCompiler  : "androidx.lifecycle:lifecycle-compiler:${lifecycle_version}",
-                lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}"
+                stetho             : "com.facebook.stetho:stetho:${stetho_version}"
         ]
 
         uiTestDependencies = [

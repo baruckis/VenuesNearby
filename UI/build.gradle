@@ -72,6 +72,7 @@ dependencies {
     implementation uiDependencies.rxAndroid
     implementation uiDependencies.rxKotlin
     implementation uiDependencies.lifecycleExtensions
+    implementation uiDependencies.stetho
 
     kapt uiDependencies.daggerCompiler
     kapt uiDependencies.daggerProcessor

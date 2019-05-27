@@ -40,9 +40,9 @@ class ExploreVenuesViewModel @Inject constructor(
         return venuesNearbyMutableLiveData
     }
 
-    fun fetchVenuesNearby() {
+    fun fetchVenuesNearby(searchText: String) {
         venuesNearbyMutableLiveData.postValue(Resource(Status.LOADING, null, null))
-        getVenuesNearby.execute(VenuesSubscriber(), GetVenuesNearby.Params.search("Vilnius"))
+        getVenuesNearby.execute(VenuesSubscriber(), GetVenuesNearby.Params.search(searchText))
     }
 
     override fun onCleared() {
