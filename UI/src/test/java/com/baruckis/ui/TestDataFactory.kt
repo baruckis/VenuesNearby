@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-package com.baruckis.ui.model
+package com.baruckis.ui
 
-data class VenueUi(val id: String, val name: String, val latitude: Double, val longitude: Double) {
+import com.baruckis.presentation.model.VenuePresentation
+
+object TestDataFactory {
+
+    fun createVenuePresentation(): VenuePresentation {
+        return VenuePresentation("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+    }
+
 }

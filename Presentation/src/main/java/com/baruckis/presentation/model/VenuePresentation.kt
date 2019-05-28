@@ -16,5 +16,5 @@
 
 package com.baruckis.presentation.model
 
-data class VenuePresentation(val id: String, val name: String, val lattitude: Double, val longitude: Double) {
+data class VenuePresentation(val id: String, val name: String, val latitude: Double, val longitude: Double) {
 }

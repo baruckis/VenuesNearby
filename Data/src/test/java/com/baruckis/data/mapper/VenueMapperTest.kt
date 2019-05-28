@@ -45,7 +45,7 @@ class VenueMapperTest {
 
     private fun assertMapsDataCorrectly(entity: VenueEntity, model: Venue) {
         assertEquals(entity.name, model.name)
-        assertEquals(entity.lattitude, model.lattitude)
+        assertEquals(entity.latitude, model.latitude)
         assertEquals(entity.longitude, model.longitude)
     }
 

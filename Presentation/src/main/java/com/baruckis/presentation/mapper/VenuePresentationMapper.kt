@@ -23,7 +23,7 @@ import javax.inject.Inject
 open class VenuePresentationMapper @Inject constructor() : PresentationMapper<VenuePresentation, Venue> {
 
     override fun mapToPresentation(domain: Venue): VenuePresentation {
-        return VenuePresentation(domain.id, domain.name, domain.lattitude, domain.longitude)
+        return VenuePresentation(domain.id, domain.name, domain.latitude, domain.longitude)
     }
 
 }

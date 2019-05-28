@@ -17,13 +17,29 @@
 package com.baruckis.ui.mapper
 
 import com.baruckis.presentation.model.VenuePresentation
+import com.baruckis.ui.TestDataFactory
 import com.baruckis.ui.model.VenueUi
-import javax.inject.Inject
+import org.junit.Test
+import kotlin.test.assertEquals
 
-class VenueUiMapper @Inject constructor() : UiMapper<VenuePresentation, VenueUi> {
+class VenueUiMapperTest {
 
-    override fun mapToUi(presentation: VenuePresentation): VenueUi {
-        return VenueUi(presentation.id, presentation.name, presentation.latitude, presentation.longitude)
+    private val mapper = VenueUiMapper()
+
+    @Test
+    fun mapToUi() {
+
+        val presentationModel = TestDataFactory.createVenuePresentation()
+        val uiModel = mapper.mapToUi(presentationModel)
+
+        assertMapsDataCorrectly(presentationModel, uiModel)
+    }
+
+    private fun assertMapsDataCorrectly(presentationModel: VenuePresentation, uiModel: VenueUi) {
+        assertEquals(presentationModel.id, uiModel.id)
+        assertEquals(presentationModel.name, uiModel.name)
+        assertEquals(presentationModel.latitude, uiModel.latitude)
+        assertEquals(presentationModel.longitude, uiModel.longitude)
     }
 
 }

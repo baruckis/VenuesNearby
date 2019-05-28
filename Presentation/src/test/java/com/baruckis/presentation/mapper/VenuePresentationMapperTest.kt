@@ -38,7 +38,7 @@ class VenuePresentationMapperTest {
     private fun assertMapsDataCorrectly(domainModel: Venue, presentationModel: VenuePresentation) {
         assertEquals(domainModel.id, presentationModel.id)
         assertEquals(domainModel.name, presentationModel.name)
-        assertEquals(domainModel.lattitude, presentationModel.lattitude)
+        assertEquals(domainModel.latitude, presentationModel.latitude)
         assertEquals(domainModel.longitude, presentationModel.longitude)
     }
 

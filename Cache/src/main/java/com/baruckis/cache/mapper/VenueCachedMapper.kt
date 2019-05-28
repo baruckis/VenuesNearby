@@ -27,7 +27,7 @@ class VenueCachedMapper @Inject constructor() : CacheMapper<VenueCached, VenueEn
     }
 
     override fun mapToCached(entity: VenueEntity): VenueCached {
-        return VenueCached(entity.id, entity.name, entity.lattitude, entity.longitude)
+        return VenueCached(entity.id, entity.name, entity.latitude, entity.longitude)
     }
 
 }

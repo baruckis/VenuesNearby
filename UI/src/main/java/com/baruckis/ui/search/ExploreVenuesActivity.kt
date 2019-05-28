@@ -83,10 +83,6 @@ class ExploreVenuesActivity : AppCompatActivity() {
             handlePresentationResourceStatus(resource)
         })
 
-        button.setOnClickListener {
-            exploreVenuesViewModel.fetchVenuesNearby("Vilnius")
-        }
-
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

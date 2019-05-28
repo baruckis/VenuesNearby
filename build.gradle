@@ -41,8 +41,8 @@ buildscript {
         // An HTTP & HTTP/2 client for Android and Java applications.
         okhttp_version = '3.14.2'
         retrofit_version = '2.5.0'          // HTTP client Retrofit.
-        robolectric_version = '4.2.1'
         // Robolectric is the industry-standard unit testing framework for Android.
+        robolectric_version = '4.2.1'
         room_version = '2.0.0'              // Room is a database object mapping library.
         // Flexible view for providing a limited window into a large data set.
         recyclerview_version = '1.0.0'

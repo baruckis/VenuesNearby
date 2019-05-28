@@ -33,7 +33,7 @@ class VenueRecommendationsApiResponseModelMapperTest {
         val entity = mapper.mapFromApiResponseModel(model)
 
         assertEquals(model.venue.name, entity.name)
-        assertEquals(model.venue.location.lat, entity.lattitude)
+        assertEquals(model.venue.location.lat, entity.latitude)
         assertEquals(model.venue.location.lng, entity.longitude)
     }
 

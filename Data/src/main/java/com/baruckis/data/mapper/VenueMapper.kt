@@ -23,11 +23,11 @@ import javax.inject.Inject
 open class VenueMapper @Inject constructor() : EntityMapper<VenueEntity, Venue> {
 
     override fun mapFromEntity(entity: VenueEntity): Venue {
-        return Venue(entity.id, entity.name, entity.lattitude, entity.longitude)
+        return Venue(entity.id, entity.name, entity.latitude, entity.longitude)
     }
 
     override fun mapToEntity(domain: Venue): VenueEntity {
-        return VenueEntity(domain.id, domain.name, domain.lattitude, domain.longitude)
+        return VenueEntity(domain.id, domain.name, domain.latitude, domain.longitude)
     }
 
 }
