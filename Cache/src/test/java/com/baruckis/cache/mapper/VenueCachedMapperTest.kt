@@ -16,6 +16,7 @@
 
 package com.baruckis.cache.mapper
 
+import com.baruckis.cache.TestDataFactory
 import com.baruckis.cache.model.VenueCached
 import com.baruckis.data.model.VenueEntity
 import org.junit.Test
@@ -28,17 +29,17 @@ class VenueCachedMapperTest {
     @Test
     fun mapFromCachedModel() {
 
-        val model = VenueCached("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
-        val entity = mapper.mapFromCached(model)
+        val cachedModel = TestDataFactory.createVenueCached()
+        val dataModel = mapper.mapFromCached(cachedModel)
 
-        assertMapsDataCorrectly(model, entity)
+        assertMapsDataCorrectly(cachedModel, dataModel)
     }
 
-    private fun assertMapsDataCorrectly(model: VenueCached, entity: VenueEntity) {
-        assertEquals(model.id, entity.id)
-        assertEquals(model.name, entity.name)
-        assertEquals(model.latitude, entity.latitude)
-        assertEquals(model.longitude, entity.longitude)
+    private fun assertMapsDataCorrectly(cachedModel: VenueCached, dataModel: VenueEntity) {
+        assertEquals(cachedModel.id, dataModel.id)
+        assertEquals(cachedModel.name, dataModel.name)
+        assertEquals(cachedModel.latitude, dataModel.latitude)
+        assertEquals(cachedModel.longitude, dataModel.longitude)
     }
 
 }

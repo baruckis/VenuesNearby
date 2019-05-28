@@ -16,6 +16,7 @@
 
 package com.baruckis.data.store
 
+import com.baruckis.data.TestDataFactory
 import com.baruckis.data.model.VenueEntity
 import com.baruckis.data.repository.VenuesCache
 import com.nhaarman.mockitokotlin2.any
@@ -30,12 +31,12 @@ class VenuesCacheDataStoreTest {
     private val venuesCache = mock<VenuesCache>()
     private val venuesCacheDataStore = VenuesCacheDataStore(venuesCache)
 
-    private val venueEntity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+    private val venueEntity = TestDataFactory.createVenueEntity()
 
     @Test
     fun getVenuesNearbyCompletes() {
         stubGetVenuesNearby(Single.just(listOf(venueEntity)))
-        val testObserver = venuesCacheDataStore.getVenuesNearby("Trafalgar Sq").test()
+        val testObserver = venuesCacheDataStore.getVenuesNearby(TestDataFactory.createVenueEntityPlaceName()).test()
         testObserver.assertComplete()
     }
 
@@ -43,14 +44,14 @@ class VenuesCacheDataStoreTest {
     fun getVenuesNearbyReturnsData() {
         val data = listOf(venueEntity)
         stubGetVenuesNearby(Single.just(data))
-        val testObserver = venuesCacheDataStore.getVenuesNearby("Trafalgar Sq").test()
+        val testObserver = venuesCacheDataStore.getVenuesNearby(TestDataFactory.createVenueEntityPlaceName()).test()
         testObserver.assertValue(data)
     }
 
     @Test
     fun saveVenuesNearbyCompletes() {
         stubSaveVenuesNearby(Completable.complete())
-        val testObserver = venuesCacheDataStore.saveVenuesNearby("Trafalgar Sq", listOf(venueEntity)).test()
+        val testObserver = venuesCacheDataStore.saveVenuesNearby(TestDataFactory.createVenueEntityPlaceName(), listOf(venueEntity)).test()
         testObserver.assertComplete()
     }
 

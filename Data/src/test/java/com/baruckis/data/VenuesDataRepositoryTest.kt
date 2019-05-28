@@ -42,8 +42,8 @@ class VenuesDataRepositoryTest {
 
     private val venuesDataRepository = VenuesDataRepository(venueMapper, venuesCache, venuesDataStoreFactory)
 
-    private val venueModel = Venue("4d1a11a6cc216ea884ff81d3", "Gedimino pr.", 54.68736449150992, 25.279981398558263)
-    private val venueEntity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+    private val venueModel = TestDataFactory.createVenue()
+    private val venueEntity = TestDataFactory.createVenueEntity()
 
 
     @Before
@@ -70,7 +70,7 @@ class VenuesDataRepositoryTest {
     @Test
     fun getVenuesNearbyCompletes() {
 
-        val testObserver = venuesDataRepository.getVenuesNearby("Gedimino pr.").test()
+        val testObserver = venuesDataRepository.getVenuesNearby(TestDataFactory.createVenuePlaceName()).test()
         testObserver.assertComplete()
     }
 
@@ -78,34 +78,34 @@ class VenuesDataRepositoryTest {
     @Test
     fun getVenuesNearbyReturnsData() {
 
-        val testObserver = venuesDataRepository.getVenuesNearby("Trafalgar Sq").test()
+        val testObserver = venuesDataRepository.getVenuesNearby(TestDataFactory.createVenuePlaceName()).test()
         testObserver.assertValue(listOf(venueModel))
     }
 
 
     private fun stubAreVenuesNearbyCached(single: Single<Boolean>) {
         whenever(venuesCache.areVenuesNearbyCached(any()))
-                .thenReturn(single)
+            .thenReturn(single)
     }
 
     private fun stubIsCacheExpired(single: Single<Boolean>) {
         whenever(venuesCache.isVenuesNearbyCacheExpired())
-                .thenReturn(single)
+            .thenReturn(single)
     }
 
     private fun stubGetDataStore() {
         whenever(venuesDataStoreFactory.getDataStore(any(), any()))
-                .thenReturn(venuesDataStore)
+            .thenReturn(venuesDataStore)
     }
 
     private fun stubGetVenuesNearby(placeName: String, single: Single<List<VenueEntity>>) {
         whenever(venuesDataStore.getVenuesNearby(placeName))
-                .thenReturn(single)
+            .thenReturn(single)
     }
 
     private fun stubGetCacheDataStore() {
         whenever(venuesDataStoreFactory.getCacheDataStore())
-                .thenReturn(venuesDataStore)
+            .thenReturn(venuesDataStore)
     }
 
     private fun stubClearVenuesNearby(completable: Completable) {
@@ -115,12 +115,12 @@ class VenuesDataRepositoryTest {
 
     private fun stubSaveVenuesNearby(completable: Completable) {
         whenever(venuesDataStore.saveVenuesNearby(any(), any()))
-                .thenReturn(completable)
+            .thenReturn(completable)
     }
 
     private fun stubMapFromEntity(model: Venue, entity: VenueEntity) {
         whenever(venueMapper.mapFromEntity(entity))
-                .thenReturn(model)
+            .thenReturn(model)
     }
 
 }

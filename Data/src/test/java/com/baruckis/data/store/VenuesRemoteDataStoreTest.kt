@@ -16,6 +16,7 @@
 
 package com.baruckis.data.store
 
+import com.baruckis.data.TestDataFactory
 import com.baruckis.data.model.VenueEntity
 import com.baruckis.data.repository.VenuesRemote
 import com.nhaarman.mockitokotlin2.any
@@ -29,12 +30,12 @@ class VenuesRemoteDataStoreTest {
     private val venuesRemote = mock<VenuesRemote>()
     private val venuesRemoteDataStore = VenuesRemoteDataStore(venuesRemote)
 
-    private val venueEntity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Gedimino pr.", 54.68736449150992, 25.279981398558263)
+    private val venueEntity = TestDataFactory.createVenueEntity()
 
     @Test
     fun getVenuesNearbyCompletes() {
         stubGetVenuesNearby(Single.just(listOf(venueEntity)))
-        val testObserver = venuesRemoteDataStore.getVenuesNearby("Trafalgar Sq").test()
+        val testObserver = venuesRemoteDataStore.getVenuesNearby(TestDataFactory.createVenueEntityPlaceName()).test()
         testObserver.assertComplete()
     }
 
@@ -42,13 +43,13 @@ class VenuesRemoteDataStoreTest {
     fun getVenuesNearbyReturnsData() {
         val data = listOf(venueEntity)
         stubGetVenuesNearby(Single.just(data))
-        val testObserver = venuesRemoteDataStore.getVenuesNearby("Gedimino pr.").test()
+        val testObserver = venuesRemoteDataStore.getVenuesNearby(TestDataFactory.createVenueEntityPlaceName()).test()
         testObserver.assertValue(data)
     }
 
     @Test(expected = UnsupportedOperationException::class)
     fun saveVenuesNearby() {
-        venuesRemoteDataStore.saveVenuesNearby("Gedimino pr.", emptyList()).test()
+        venuesRemoteDataStore.saveVenuesNearby(TestDataFactory.createVenueEntityPlaceName(), emptyList()).test()
     }
 
     @Test(expected = UnsupportedOperationException::class)
@@ -59,7 +60,7 @@ class VenuesRemoteDataStoreTest {
 
     private fun stubGetVenuesNearby(single: Single<List<VenueEntity>>) {
         whenever(venuesRemote.getVenuesNearby(any()))
-                .thenReturn(single)
+            .thenReturn(single)
     }
 
 }

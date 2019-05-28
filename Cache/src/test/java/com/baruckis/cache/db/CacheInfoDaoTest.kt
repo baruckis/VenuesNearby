@@ -19,6 +19,7 @@ package com.baruckis.cache.db
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import com.baruckis.cache.TestDataFactory
 import com.baruckis.cache.model.CacheInfo
 import org.junit.After
 import org.junit.Rule
@@ -30,7 +31,7 @@ import org.robolectric.annotation.Config
 // Robolectric setup
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
-class CacheUpdateTimeDaoTest {
+class CacheInfoDaoTest {
 
     @Rule
     @JvmField
@@ -48,9 +49,9 @@ class CacheUpdateTimeDaoTest {
     }
 
     @Test
-    fun replaceAndGetCacheUpdateTime() {
+    fun replaceAndGetCacheInfo() {
 
-        val cacheUpdateTime = CacheInfo(-1, System.currentTimeMillis(), "")
+        val cacheUpdateTime = CacheInfo(-1, System.currentTimeMillis(), TestDataFactory.createPlaceName())
 
         database.cacheUpdateTimeDao().replaceCacheInfo(cacheUpdateTime)
 

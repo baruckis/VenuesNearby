@@ -38,10 +38,11 @@ class VenuesCacheImplTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            AppDatabase::class.java)
-            .allowMainThreadQueries()
-            .build()
+        ApplicationProvider.getApplicationContext(),
+        AppDatabase::class.java
+    )
+        .allowMainThreadQueries()
+        .build()
 
     private val mapper = VenueCachedMapper()
     private val cache = VenuesCacheImpl(database, mapper)
@@ -78,15 +79,17 @@ class VenuesCacheImplTest {
     @Test
     fun areVenuesNearbyCached() {
         val venueEntities = listOf(TestDataFactory.createVenueEntity())
-        cache.saveVenuesNearby(venueEntities).andThen(cache.setLastCacheInfo(System.currentTimeMillis(), "Vilnius")).test()
+        cache.saveVenuesNearby(venueEntities)
+            .andThen(cache.setLastCacheInfo(System.currentTimeMillis(), TestDataFactory.createPlaceName())).test()
 
-        val testObserver = cache.areVenuesNearbyCached("Vilnius").test()
+        val testObserver = cache.areVenuesNearbyCached(TestDataFactory.createPlaceName()).test()
         testObserver.assertValue(true)
     }
 
     @Test
-    fun setLastCacheTime() {
-        val testObserver = cache.setLastCacheInfo(100, "").test()
+    fun setLastCacheInfo() {
+        val testObserver =
+            cache.setLastCacheInfo(100, TestDataFactory.createPlaceName()).test()
         testObserver.assertComplete()
     }
 
@@ -98,7 +101,7 @@ class VenuesCacheImplTest {
 
     @Test
     fun isVenuesNearbyCacheNotExpired() {
-        cache.setLastCacheInfo(System.currentTimeMillis(), "").test()
+        cache.setLastCacheInfo(System.currentTimeMillis(), TestDataFactory.createPlaceName()).test()
         val testObserver = cache.isVenuesNearbyCacheExpired().test()
         testObserver.assertValue(false)
     }

@@ -16,6 +16,7 @@
 
 package com.baruckis.data.mapper
 
+import com.baruckis.data.TestDataFactory
 import com.baruckis.data.model.VenueEntity
 import com.baruckis.domain.model.Venue
 import org.junit.Test
@@ -28,25 +29,25 @@ class VenueMapperTest {
     @Test
     fun mapFromEntity() {
 
-        val entity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
-        val model = mapper.mapFromEntity(entity)
+        val dataModel = TestDataFactory.createVenueEntity()
+        val domainModel = mapper.mapFromEntity(dataModel)
 
-        assertMapsDataCorrectly(entity, model)
+        assertMapsDataCorrectly(dataModel, domainModel)
     }
 
     @Test
     fun mapToEntity() {
 
-        val model = Venue("4d1a11a6cc216ea884ff81d3", "Gedimino pr.", 54.68736449150992, 25.279981398558263)
-        val entity = mapper.mapToEntity(model)
+        val domainModel = TestDataFactory.createVenue()
+        val dataModel = mapper.mapToEntity(domainModel)
 
-        assertMapsDataCorrectly(entity, model)
+        assertMapsDataCorrectly(dataModel, domainModel)
     }
 
-    private fun assertMapsDataCorrectly(entity: VenueEntity, model: Venue) {
-        assertEquals(entity.name, model.name)
-        assertEquals(entity.latitude, model.latitude)
-        assertEquals(entity.longitude, model.longitude)
+    private fun assertMapsDataCorrectly(dataModel: VenueEntity, domainModel: Venue) {
+        assertEquals(dataModel.name, domainModel.name)
+        assertEquals(dataModel.latitude, domainModel.latitude)
+        assertEquals(dataModel.longitude, domainModel.longitude)
     }
 
 }
