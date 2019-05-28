@@ -17,7 +17,10 @@
 package com.baruckis.ui.search
 
 import android.app.SearchManager
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -35,12 +38,13 @@ import com.baruckis.presentation.state.Resource
 import com.baruckis.presentation.state.Status
 import com.baruckis.ui.R
 import com.baruckis.ui.mapper.VenueUiMapper
+import com.baruckis.ui.model.VenueUi
 import com.baruckis.ui.utils.logConsoleVerbose
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_explore_venues.*
 import javax.inject.Inject
 
-class ExploreVenuesActivity : AppCompatActivity() {
+class ExploreVenuesActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private lateinit var exploreVenuesViewModel: ExploreVenuesViewModel
 
@@ -73,6 +77,7 @@ class ExploreVenuesActivity : AppCompatActivity() {
 
         recyclerview.layoutManager = LinearLayoutManager(this)
         recyclerview.adapter = exploreVenuesRecyclerViewAdapter
+        exploreVenuesRecyclerViewAdapter.setItemClickListener(venueClickListener)
 
         // Obtain ViewModel from ViewModelProviders, using this activity as LifecycleOwner.
         exploreVenuesViewModel = ViewModelProviders.of(this, viewModelFactory).get(ExploreVenuesViewModel::class.java)
@@ -135,25 +140,46 @@ class ExploreVenuesActivity : AppCompatActivity() {
         searchView = searchMenuItem?.actionView as SearchView
         searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView?.maxWidth = Integer.MAX_VALUE // Expand to full width, to have close button set to the right side.
-        searchView?.setOnQueryTextListener(searchListener)
+        searchView?.setOnQueryTextListener(this)
 
         return true
     }
 
+
     // This listener reacts to text submit inside search area. We expect to get new search results
     // each time when we submit a query for the place.
-    private val searchListener = object : SearchView.OnQueryTextListener {
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        query?.let {
+            exploreVenuesViewModel.fetchVenuesNearby(it)
+            queryPlaceName = it
 
-        override fun onQueryTextSubmit(query: String?): Boolean {
-            query?.let {
-                exploreVenuesViewModel.fetchVenuesNearby(it)
-                queryPlaceName = it
-            }
-            return true
+            searchMenuItem?.collapseActionView()
         }
+        return true
+    }
 
-        override fun onQueryTextChange(newText: String?): Boolean {
-            return false
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return false
+    }
+
+
+    private val venueClickListener = object : VenueClickListener {
+
+        override fun onVenueClicked(venueUi: VenueUi) {
+            try {
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(getString(R.string.uri_maps_app, venueUi.latitude, venueUi.longitude, venueUi.name))
+                )
+                this@ExploreVenuesActivity.startActivity(intent)
+            } catch (exc: ActivityNotFoundException) {
+                logConsoleVerbose("onVenueClicked " + exc.localizedMessage)
+                Toast.makeText(this@ExploreVenuesActivity, getString(R.string.install_maps_app), Toast.LENGTH_LONG)
+                    .show()
+            } catch (exc: Exception) {
+                logConsoleVerbose("onVenueClicked " + exc.localizedMessage)
+                Toast.makeText(this@ExploreVenuesActivity, exc.localizedMessage, Toast.LENGTH_LONG).show()
+            }
         }
 
     }

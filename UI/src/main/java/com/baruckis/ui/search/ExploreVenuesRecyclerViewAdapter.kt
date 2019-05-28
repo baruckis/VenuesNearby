@@ -29,6 +29,8 @@ class ExploreVenuesRecyclerViewAdapter @Inject constructor() :
 
     private var dataList: List<VenueUi> = ArrayList()
 
+    private var itemClickListener: VenueClickListener? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
 
@@ -48,10 +50,18 @@ class ExploreVenuesRecyclerViewAdapter @Inject constructor() :
         notifyDataSetChanged()
     }
 
+    fun setItemClickListener(newListener: VenueClickListener) {
+        itemClickListener = newListener
+    }
+
 
     inner class BindingViewHolder(private var binding: ListItemVenueBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(venueUi: VenueUi) {
+
+            binding.root.setOnClickListener {
+                itemClickListener?.onVenueClicked(venueUi)
+            }
 
             binding.venueUi = venueUi
 
