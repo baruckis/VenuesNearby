@@ -58,7 +58,7 @@ buildscript {
         assertj_version = '3.12.2'          // Rich and fluent assertions for testing for Java.
         mockito_kotlin_version = '2.1.0'
         // The AndroidX Test Library provides an extensive framework for testing Android apps.
-        test_core = '1.0.0'
+        test_core_version = '1.0.0'
         test_runner_version = '1.1.1'       // Android testing library's runner.
 
 
@@ -114,7 +114,7 @@ buildscript {
                 mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
                 robolectric  : "org.robolectric:robolectric:${robolectric_version}",
                 roomTesting  : "androidx.room:room-testing:${room_version}",
-                testCore     : "androidx.test:core:${test_core}",
+                testCore     : "androidx.test:core:${test_core_version}",
         ]
 
         presentationDependencies = [
@@ -150,8 +150,14 @@ buildscript {
         ]
 
         uiTestDependencies = [
-                kotlinJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
+                dagger             : "com.google.dagger:dagger:${dagger_version}",
+                daggerCompiler     : "com.google.dagger:dagger-compiler:${dagger_version}",
+                daggerProcessor    : "com.google.dagger:dagger-android-processor:${dagger_version}",
+                daggerSupport      : "com.google.dagger:dagger-android-support:${dagger_version}",
+                kotlinJUnit        : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+                mockitoKotlin      : "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
+                testCore           : "androidx.test:core:${test_core_version}",
+                testRunner         : "androidx.test:runner:${test_runner_version}"
         ]
 
     }

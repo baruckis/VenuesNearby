@@ -17,31 +17,24 @@
 package com.baruckis.ui.di.module
 
 import com.baruckis.data.repository.VenuesRemote
-import com.baruckis.remote.VenuesRemoteImpl
 import com.baruckis.remote.service.FoursquareApiService
-import com.baruckis.remote.service.FoursquareApiServiceFactory
-import com.baruckis.ui.BuildConfig
-import dagger.Binds
+import com.nhaarman.mockitokotlin2.mock
 import dagger.Module
 import dagger.Provides
 
-
 @Module
-abstract class RemoteModule {
+object TestRemoteModule {
 
-    @Module
-    companion object {
-        // Annotation informs Dagger compiler that this method is the constructor for the Context return type.
-        @Provides
-        // If you use this annotation, the compiler will generate both a static method in the enclosing class of the
-        // object and an instance method in the object itself.
-        @JvmStatic
-        fun provideFoursquareApi(): FoursquareApiService {
-            return FoursquareApiServiceFactory.createFoursquareApiService(BuildConfig.DEBUG)
-        }
+    @Provides
+    @JvmStatic
+    fun provideFoursquareApi(): FoursquareApiService {
+        return mock()
     }
 
-    @Binds
-    abstract fun bindVenuesCache(venuesRemote: VenuesRemoteImpl): VenuesRemote
+    @Provides
+    @JvmStatic
+    fun provideVenuesCache(): VenuesRemote {
+        return mock()
+    }
 
 }

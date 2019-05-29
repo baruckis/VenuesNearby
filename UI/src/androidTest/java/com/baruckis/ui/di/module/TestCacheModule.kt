@@ -17,31 +17,25 @@
 package com.baruckis.ui.di.module
 
 import android.app.Application
-import com.baruckis.cache.VenuesCacheImpl
 import com.baruckis.cache.db.AppDatabase
 import com.baruckis.data.repository.VenuesCache
-import dagger.Binds
+import com.nhaarman.mockitokotlin2.mock
 import dagger.Module
 import dagger.Provides
 
-
 @Module
-abstract class CacheModule {
+object TestCacheModule {
 
-    @Module
-    companion object {
-        // Annotation informs Dagger compiler that this method is the constructor for the Context return type.
-        @Provides
-        // If you use this annotation, the compiler will generate both a static method in the enclosing class of the
-        // object and an instance method in the object itself.
-        @JvmStatic
-        fun provideDatabase(application: Application): AppDatabase {
-            return AppDatabase.getInstance(application)
-        }
+    @Provides
+    @JvmStatic
+    fun provideDatabase(application: Application): AppDatabase {
+        return AppDatabase.getInstance(application)
     }
 
-
-    @Binds
-    abstract fun bindVenuesCache(venuesCache: VenuesCacheImpl): VenuesCache
+    @Provides
+    @JvmStatic
+    fun provideVenuesCache(): VenuesCache {
+        return mock()
+    }
 
 }
