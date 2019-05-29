@@ -83,6 +83,12 @@ class ExploreVenuesActivity : AppCompatActivity(), SearchView.OnQueryTextListene
         exploreVenuesViewModel = ViewModelProviders.of(this, viewModelFactory).get(ExploreVenuesViewModel::class.java)
 
         queryPlaceName = savedInstanceState?.getString(QUERY_PLACE_NAME)
+        queryPlaceName?.let {
+            exploreVenuesViewModel.fetchVenuesNearby(it)
+            supportActionBar?.subtitle = StringBuilder(getString(R.string.app_subtitle, it))
+        } ?: run {
+            handlePresentationResourceStatus(Resource(Status.INIT, null, null))
+        }
 
         exploreVenuesViewModel.getVenuesNearbyLiveData().observe(this, Observer { resource ->
             handlePresentationResourceStatus(resource)
@@ -104,12 +110,14 @@ class ExploreVenuesActivity : AppCompatActivity(), SearchView.OnQueryTextListene
             Status.LOADING -> {
                 progress.visibility = View.VISIBLE
                 recyclerview.visibility = View.GONE
+                message.visibility = View.GONE
 
                 supportActionBar?.subtitle = ""
             }
             Status.SUCCESS -> {
                 progress.visibility = View.GONE
                 recyclerview.visibility = View.VISIBLE
+                message.visibility = View.GONE
 
                 if (!queryPlaceName.isNullOrBlank()) {
                     supportActionBar?.subtitle = StringBuilder(getString(R.string.app_subtitle, queryPlaceName))
@@ -119,10 +127,24 @@ class ExploreVenuesActivity : AppCompatActivity(), SearchView.OnQueryTextListene
 
                 exploreVenuesRecyclerViewAdapter.setData(venuesUi)
 
+                if (venuesUi.isEmpty()) {
+                    message.visibility = View.VISIBLE
+                    message.text = getString(R.string.empty_message, queryPlaceName)
+                }
             }
             Status.ERROR -> {
                 progress.visibility = View.GONE
-                Toast.makeText(this, "Error: ${dataResource.message}", Toast.LENGTH_LONG).show()
+                recyclerview.visibility = View.GONE
+                message.visibility = View.VISIBLE
+
+                message.text = getString(R.string.error_message, dataResource.message)
+            }
+            Status.INIT -> {
+                progress.visibility = View.GONE
+                recyclerview.visibility = View.GONE
+                message.visibility = View.VISIBLE
+
+                message.text = getString(R.string.init_message)
             }
         }
 
@@ -152,6 +174,7 @@ class ExploreVenuesActivity : AppCompatActivity(), SearchView.OnQueryTextListene
         query?.let {
             exploreVenuesViewModel.fetchVenuesNearby(it)
             queryPlaceName = it
+            supportActionBar?.subtitle = StringBuilder(getString(R.string.app_subtitle, queryPlaceName))
 
             searchMenuItem?.collapseActionView()
         }
@@ -168,14 +191,14 @@ class ExploreVenuesActivity : AppCompatActivity(), SearchView.OnQueryTextListene
         override fun onVenueClicked(venueUi: VenueUi) {
             try {
                 val intent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(getString(R.string.uri_maps_app, venueUi.latitude, venueUi.longitude, venueUi.name))
+                        Intent.ACTION_VIEW,
+                        Uri.parse(getString(R.string.uri_maps_app, venueUi.latitude, venueUi.longitude, venueUi.name))
                 )
                 this@ExploreVenuesActivity.startActivity(intent)
             } catch (exc: ActivityNotFoundException) {
                 logConsoleVerbose("onVenueClicked " + exc.localizedMessage)
                 Toast.makeText(this@ExploreVenuesActivity, getString(R.string.install_maps_app), Toast.LENGTH_LONG)
-                    .show()
+                        .show()
             } catch (exc: Exception) {
                 logConsoleVerbose("onVenueClicked " + exc.localizedMessage)
                 Toast.makeText(this@ExploreVenuesActivity, exc.localizedMessage, Toast.LENGTH_LONG).show()

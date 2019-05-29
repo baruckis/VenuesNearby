@@ -17,5 +17,5 @@
 package com.baruckis.presentation.state
 
 enum class Status {
-    LOADING, SUCCESS, ERROR
+    LOADING, SUCCESS, ERROR, INIT
 }
