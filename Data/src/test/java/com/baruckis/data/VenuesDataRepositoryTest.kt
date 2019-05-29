@@ -22,23 +22,23 @@ import com.baruckis.data.repository.VenuesCache
 import com.baruckis.data.repository.VenuesDataStore
 import com.baruckis.data.store.VenuesDataStoreFactory
 import com.baruckis.domain.model.Venue
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers
+import org.mockito.Mockito
+import org.mockito.Mockito.*
 
 class VenuesDataRepositoryTest {
 
-    private val venueMapper = mock<VenueMapper>()
+    private val venueMapper = mock(VenueMapper::class.java)
 
-    private val venuesCache = mock<VenuesCache>()
+    private val venuesCache = mock(VenuesCache::class.java)
 
-    private val venuesDataStoreFactory = mock<VenuesDataStoreFactory>()
+    private val venuesDataStoreFactory = mock(VenuesDataStoreFactory::class.java)
 
-    private val venuesDataStore = mock<VenuesDataStore>()
+    private val venuesDataStore = mock(VenuesDataStore::class.java)
 
     private val venuesDataRepository = VenuesDataRepository(venueMapper, venuesCache, venuesDataStoreFactory)
 
@@ -55,7 +55,7 @@ class VenuesDataRepositoryTest {
 
         stubGetDataStore()
 
-        stubGetVenuesNearby(any(), Single.just(listOf(venueEntity)))
+        stubGetVenuesNearby(anyString(), Single.just(listOf(venueEntity)))
 
         stubGetCacheDataStore()
 
@@ -84,42 +84,42 @@ class VenuesDataRepositoryTest {
 
 
     private fun stubAreVenuesNearbyCached(single: Single<Boolean>) {
-        whenever(venuesCache.areVenuesNearbyCached(any()))
+        Mockito.`when`(venuesCache.areVenuesNearbyCached(anyString()))
             .thenReturn(single)
     }
 
     private fun stubIsCacheExpired(single: Single<Boolean>) {
-        whenever(venuesCache.isVenuesNearbyCacheExpired())
+        Mockito.`when`(venuesCache.isVenuesNearbyCacheExpired())
             .thenReturn(single)
     }
 
     private fun stubGetDataStore() {
-        whenever(venuesDataStoreFactory.getDataStore(any(), any()))
+        Mockito.`when`(venuesDataStoreFactory.getDataStore(anyBoolean(), anyBoolean()))
             .thenReturn(venuesDataStore)
     }
 
     private fun stubGetVenuesNearby(placeName: String, single: Single<List<VenueEntity>>) {
-        whenever(venuesDataStore.getVenuesNearby(placeName))
+        Mockito.`when`(venuesDataStore.getVenuesNearby(placeName))
             .thenReturn(single)
     }
 
     private fun stubGetCacheDataStore() {
-        whenever(venuesDataStoreFactory.getCacheDataStore())
+        Mockito.`when`(venuesDataStoreFactory.getCacheDataStore())
             .thenReturn(venuesDataStore)
     }
 
     private fun stubClearVenuesNearby(completable: Completable) {
-        whenever(venuesDataStore.clearVenuesNearby())
+        Mockito.`when`(venuesDataStore.clearVenuesNearby())
             .thenReturn(completable)
     }
 
     private fun stubSaveVenuesNearby(completable: Completable) {
-        whenever(venuesDataStore.saveVenuesNearby(any(), any()))
+        Mockito.`when`(venuesDataStore.saveVenuesNearby(anyString(), ArgumentMatchers.anyList()))
             .thenReturn(completable)
     }
 
     private fun stubMapFromEntity(model: Venue, entity: VenueEntity) {
-        whenever(venueMapper.mapFromEntity(entity))
+        Mockito.`when`(venueMapper.mapFromEntity(entity))
             .thenReturn(model)
     }
 

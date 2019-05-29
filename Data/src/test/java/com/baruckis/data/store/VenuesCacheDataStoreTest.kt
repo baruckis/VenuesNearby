@@ -19,16 +19,15 @@ package com.baruckis.data.store
 import com.baruckis.data.TestDataFactory
 import com.baruckis.data.model.VenueEntity
 import com.baruckis.data.repository.VenuesCache
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Test
+import org.mockito.Mockito
+import org.mockito.Mockito.*
 
 class VenuesCacheDataStoreTest {
 
-    private val venuesCache = mock<VenuesCache>()
+    private val venuesCache = mock(VenuesCache::class.java)
     private val venuesCacheDataStore = VenuesCacheDataStore(venuesCache)
 
     private val venueEntity = TestDataFactory.createVenueEntity()
@@ -51,7 +50,9 @@ class VenuesCacheDataStoreTest {
     @Test
     fun saveVenuesNearbyCompletes() {
         stubSaveVenuesNearby(Completable.complete())
-        val testObserver = venuesCacheDataStore.saveVenuesNearby(TestDataFactory.createVenueEntityPlaceName(), listOf(venueEntity)).test()
+        val testObserver =
+            venuesCacheDataStore.saveVenuesNearby(TestDataFactory.createVenueEntityPlaceName(), listOf(venueEntity))
+                .test()
         testObserver.assertComplete()
     }
 
@@ -64,21 +65,21 @@ class VenuesCacheDataStoreTest {
 
 
     private fun stubGetVenuesNearby(single: Single<List<VenueEntity>>) {
-        whenever(venuesCache.getVenuesNearby(any()))
-                .thenReturn(single)
+        Mockito.`when`(venuesCache.getVenuesNearby(anyString()))
+            .thenReturn(single)
     }
 
     private fun stubSaveVenuesNearby(completable: Completable) {
-        whenever(venuesCache.setLastCacheInfo(any(), any()))
-                .thenReturn(completable)
+        Mockito.`when`(venuesCache.setLastCacheInfo(anyLong(), anyString()))
+            .thenReturn(completable)
 
-        whenever(venuesCache.saveVenuesNearby(any()))
-                .thenReturn(completable)
+        Mockito.`when`(venuesCache.saveVenuesNearby(anyList()))
+            .thenReturn(completable)
     }
 
     private fun stubClearVenuesNearby(completable: Completable) {
-        whenever(venuesCache.clearVenuesNearby())
-                .thenReturn(completable)
+        Mockito.`when`(venuesCache.clearVenuesNearby())
+            .thenReturn(completable)
     }
 
 }

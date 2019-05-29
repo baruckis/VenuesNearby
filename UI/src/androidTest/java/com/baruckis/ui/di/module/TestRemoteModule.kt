@@ -18,9 +18,9 @@ package com.baruckis.ui.di.module
 
 import com.baruckis.data.repository.VenuesRemote
 import com.baruckis.remote.service.FoursquareApiService
-import com.nhaarman.mockitokotlin2.mock
 import dagger.Module
 import dagger.Provides
+import org.mockito.Mockito.mock
 
 @Module
 object TestRemoteModule {
@@ -28,13 +28,13 @@ object TestRemoteModule {
     @Provides
     @JvmStatic
     fun provideFoursquareApi(): FoursquareApiService {
-        return mock()
+        return mock(FoursquareApiService::class.java)
     }
 
     @Provides
     @JvmStatic
     fun provideVenuesCache(): VenuesRemote {
-        return mock()
+        return mock(VenuesRemote::class.java)
     }
 
 }

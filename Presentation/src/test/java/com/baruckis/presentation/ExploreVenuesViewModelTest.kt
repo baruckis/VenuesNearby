@@ -20,11 +20,13 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.baruckis.domain.model.Venue
 import com.baruckis.domain.search.GetVenuesNearby
 import com.baruckis.presentation.mapper.VenuePresentationMapper
-import com.nhaarman.mockitokotlin2.*
 import io.reactivex.observers.DisposableSingleObserver
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.ArgumentCaptor
 import org.mockito.Captor
+import org.mockito.Mockito
+import org.mockito.Mockito.*
 import kotlin.test.assertEquals
 
 class ExploreVenuesViewModelTest {
@@ -33,10 +35,11 @@ class ExploreVenuesViewModelTest {
     @JvmField
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    var getVenuesNearby = mock<GetVenuesNearby>()
-    var mapper = mock<VenuePresentationMapper>()
+    var getVenuesNearby = mock(GetVenuesNearby::class.java)
+    var mapper = mock<VenuePresentationMapper>(VenuePresentationMapper::class.java)
 
     var viewModel = ExploreVenuesViewModel(getVenuesNearby, mapper)
+
 
     @Captor
     val captor = argumentCaptor<DisposableSingleObserver<List<Venue>>>()
@@ -47,7 +50,8 @@ class ExploreVenuesViewModelTest {
 
         viewModel.fetchVenuesNearby("Vilnius")
 
-        verify(getVenuesNearby, times(1)).execute(any(), eq(GetVenuesNearby.Params.search("Vilnius")))
+        verify(getVenuesNearby, times(1))
+            .execute(any(), eq(GetVenuesNearby.Params.search("Vilnius")))
     }
 
     @Test
@@ -56,12 +60,12 @@ class ExploreVenuesViewModelTest {
         val venues = TestDataFactory.createVenueList()
         val venuePresentations = TestDataFactory.createVenuePresentationList()
 
-        whenever(mapper.mapToPresentation(venues[0])).thenReturn(venuePresentations[0])
+        Mockito.`when`(mapper.mapToPresentation(venues[0])).thenReturn(venuePresentations[0])
 
         viewModel.fetchVenuesNearby("Vilnius")
 
-        verify(getVenuesNearby).execute(captor.capture(), eq(GetVenuesNearby.Params.search("Vilnius")))
-        captor.firstValue.onSuccess(venues)
+        verify(getVenuesNearby).execute(capture(captor), eq(GetVenuesNearby.Params.search("Vilnius")))
+        captor.value.onSuccess(venues)
 
         assertEquals(venuePresentations, viewModel.getVenuesNearbyLiveData().value?.data)
     }
@@ -73,10 +77,39 @@ class ExploreVenuesViewModelTest {
 
         viewModel.fetchVenuesNearby("Vilnius")
 
-        verify(getVenuesNearby).execute(captor.capture(), eq(GetVenuesNearby.Params.search("Vilnius")))
-        captor.firstValue.onError(RuntimeException(errorMsg))
+        verify(getVenuesNearby).execute(capture(captor), eq(GetVenuesNearby.Params.search("Vilnius")))
+        captor.value.onError(RuntimeException(errorMsg))
 
         assertEquals(errorMsg, viewModel.getVenuesNearbyLiveData().value?.message)
     }
+
+
+    /**
+     * Helper function for creating an argumentCaptor in kotlin.
+     */
+    inline fun <reified T : Any> argumentCaptor(): ArgumentCaptor<T> = ArgumentCaptor.forClass(T::class.java)
+
+
+    /**
+     * Returns ArgumentCaptor.capture() as nullable type to avoid java.lang.IllegalStateException
+     * when null is returned.
+     */
+    fun <T> capture(argumentCaptor: ArgumentCaptor<T>): T = argumentCaptor.capture()
+
+
+    /**
+     * Returns Mockito.any() as nullable type to avoid java.lang.IllegalStateException when
+     * null is returned.
+     */
+    fun <T> any(): T = Mockito.any<T>()
+
+
+    /**
+     * Returns Mockito.eq() as nullable type to avoid java.lang.IllegalStateException when
+     * null is returned.
+     *
+     * Generic T is nullable because implicitly bounded by Any?.
+     */
+    fun <T> eq(obj: T): T = Mockito.eq<T>(obj)
 
 }

@@ -32,7 +32,7 @@ dependencies {
     implementation remoteDependencies.retrofitConverter
 
     testImplementation remoteTestDependencies.kotlinJUnit
-    testImplementation remoteTestDependencies.mockitoKotlin
+    testImplementation remoteTestDependencies.mockito
 }
 
 sourceCompatibility = "8"

@@ -68,7 +68,7 @@ dependencies {
 
     testImplementation cacheTestDependencies.archTesting
     testImplementation cacheTestDependencies.kotlinJUnit
-    testImplementation cacheTestDependencies.mockitoKotlin
+    testImplementation cacheTestDependencies.mockito
     testImplementation cacheTestDependencies.robolectric
     testImplementation cacheTestDependencies.roomTesting
     testImplementation cacheTestDependencies.testCore

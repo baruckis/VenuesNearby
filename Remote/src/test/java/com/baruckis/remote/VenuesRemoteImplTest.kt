@@ -23,23 +23,29 @@ import com.baruckis.remote.model.Item
 import com.baruckis.remote.model.Response
 import com.baruckis.remote.model.VenueRecommendationsApiResponseModel
 import com.baruckis.remote.service.FoursquareApiService
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
 import org.junit.Test
+import org.mockito.Mockito
+import org.mockito.Mockito.anyString
+import org.mockito.Mockito.mock
 
 class VenuesRemoteImplTest {
 
-    private val mapper = mock<VenueRecommendationsApiResponseModelMapper>()
-    private val service = mock<FoursquareApiService>()
+    private val mapper = mock(VenueRecommendationsApiResponseModelMapper::class.java)
+    private val service = mock(FoursquareApiService::class.java)
     private val remote = VenuesRemoteImpl(service, mapper)
 
     private val item = Item(
-            Item.Venue("4d1a11a6cc216ea884ff81d3", "Vingio parkas", Item.Venue.Location(54.68293703261666, 25.237655639648438))
+        Item.Venue(
+            "4d1a11a6cc216ea884ff81d3",
+            "Vingio parkas",
+            Item.Venue.Location(54.68293703261666, 25.237655639648438)
+        )
     )
-    private val model = VenueRecommendationsApiResponseModel(Response(listOf(Group("recommended", listOf(item)))))
-    private val entity = VenueEntity("4d1a11a6cc216ea884ff81d3", "Vingio parkas", 54.68293703261666, 25.237655639648438)
+    private val model = VenueRecommendationsApiResponseModel(Response(listOf(
+        Group("recommended", listOf(item)))))
+    private val entity =
+        VenueEntity("4d1a11a6cc216ea884ff81d3", "Vingio parkas", 54.68293703261666, 25.237655639648438)
 
     @Test
     fun getVenuesNearbyCompletes() {
@@ -56,15 +62,15 @@ class VenuesRemoteImplTest {
 
         model.response.groups.first().items.forEach { item ->
             entities.add(entity)
-            whenever(mapper.mapFromApiResponseModel(item)).thenReturn(entity)
+            Mockito.`when`(mapper.mapFromApiResponseModel(item)).thenReturn(entity)
         }
         val testObserver = remote.getVenuesNearby("Vilnius").test()
         testObserver.assertValue(entities)
     }
 
     private fun stubGetVenuesNearby(single: Single<VenueRecommendationsApiResponseModel>) {
-        whenever(service.getVenueRecommendations(any(), any(), any(), any()))
-                .thenReturn(single)
+        Mockito.`when`(service.getVenueRecommendations(anyString(), anyString(), anyString(), anyString()))
+            .thenReturn(single)
     }
 
 }

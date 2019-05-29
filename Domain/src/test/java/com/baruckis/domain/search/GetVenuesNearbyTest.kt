@@ -20,12 +20,12 @@ import com.baruckis.domain.TestDataFactory
 import com.baruckis.domain.executor.PostExecutionThread
 import com.baruckis.domain.model.Venue
 import com.baruckis.domain.repository.VenuesDomainRepository
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 class GetVenuesNearbyTest {
@@ -65,7 +65,7 @@ class GetVenuesNearbyTest {
 
 
     private fun stubGetVenuesNearby(single: Single<List<Venue>>) {
-        whenever(venuesDomainRepository.getVenuesNearby(any()))
+        Mockito.`when`(venuesDomainRepository.getVenuesNearby(anyString()))
             .thenReturn(single)
     }
 

@@ -16,14 +16,14 @@
 
 package com.baruckis.data.store
 
-import com.nhaarman.mockitokotlin2.mock
 import org.junit.Test
+import org.mockito.Mockito.mock
 import kotlin.test.assertEquals
 
 class VenuesDataStoreFactoryTest {
 
-    private val cacheStore = mock<VenuesCacheDataStore>()
-    private val remoteStore = mock<VenuesRemoteDataStore>()
+    private val cacheStore = mock(VenuesCacheDataStore::class.java)
+    private val remoteStore = mock(VenuesRemoteDataStore::class.java)
     private val storeFactory = VenuesDataStoreFactory(cacheStore, remoteStore)
 
     @Test

@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package com.baruckis.ui.di.module
+package com.baruckis.ui.search
 
-import com.baruckis.domain.repository.VenuesDomainRepository
-import dagger.Module
-import dagger.Provides
-import org.mockito.Mockito.mock
+import androidx.test.rule.ActivityTestRule
+import org.junit.Rule
+import org.junit.Test
 
-@Module
-object TestDataModule {
+class ExploreVenuesActivityTest {
 
-    @Provides
-    @JvmStatic
-    fun provideDataRepository(): VenuesDomainRepository {
-        return mock(VenuesDomainRepository::class.java)
+    @Rule
+    @JvmField
+    val activity = ActivityTestRule<ExploreVenuesActivity>(ExploreVenuesActivity::class.java, false, false)
+
+    @Test
+    fun activityLaunch() {
+        activity.launchActivity(null)
     }
 
 }

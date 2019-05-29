@@ -19,15 +19,15 @@ package com.baruckis.data.store
 import com.baruckis.data.TestDataFactory
 import com.baruckis.data.model.VenueEntity
 import com.baruckis.data.repository.VenuesRemote
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
 import org.junit.Test
+import org.mockito.Mockito
+import org.mockito.Mockito.anyString
+import org.mockito.Mockito.mock
 
 class VenuesRemoteDataStoreTest {
 
-    private val venuesRemote = mock<VenuesRemote>()
+    private val venuesRemote = mock(VenuesRemote::class.java)
     private val venuesRemoteDataStore = VenuesRemoteDataStore(venuesRemote)
 
     private val venueEntity = TestDataFactory.createVenueEntity()
@@ -59,7 +59,7 @@ class VenuesRemoteDataStoreTest {
 
 
     private fun stubGetVenuesNearby(single: Single<List<VenueEntity>>) {
-        whenever(venuesRemote.getVenuesNearby(any()))
+        Mockito.`when`(venuesRemote.getVenuesNearby(anyString()))
             .thenReturn(single)
     }
 

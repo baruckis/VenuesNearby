@@ -28,7 +28,7 @@ dependencies {
     implementation dataDependencies.rxKotlin
 
     testImplementation dataTestDependencies.kotlinJUnit
-    testImplementation dataTestDependencies.mockitoKotlin
+    testImplementation dataTestDependencies.mockito
 
 }
 

@@ -82,12 +82,13 @@ dependencies {
     kapt uiDependencies.lifecycleCompiler
 
     testImplementation uiTestDependencies.kotlinJUnit
-    testImplementation uiTestDependencies.mockitoKotlin
+    testImplementation uiTestDependencies.mockito
 
     androidTestImplementation uiTestDependencies.dagger
     androidTestImplementation uiTestDependencies.daggerSupport
-    androidTestImplementation uiTestDependencies.mockitoKotlin
+    androidTestImplementation uiTestDependencies.mockitoAndroid
     androidTestImplementation uiTestDependencies.testCore
+    androidTestImplementation uiTestDependencies.testRules
     androidTestImplementation uiTestDependencies.testRunner
 
     kaptAndroidTest uiTestDependencies.daggerCompiler

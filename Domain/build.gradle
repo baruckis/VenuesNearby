@@ -25,7 +25,7 @@ dependencies {
     implementation domainDependencies.rxKotlin
 
     testImplementation domainTestDependencies.kotlinJUnit
-    testImplementation domainTestDependencies.mockitoKotlin
+    testImplementation domainTestDependencies.mockito
 
 }
 

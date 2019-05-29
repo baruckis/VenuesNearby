@@ -57,8 +57,13 @@ buildscript {
         junit_version = '4.12'
         assertj_version = '3.12.2'          // Rich and fluent assertions for testing for Java.
         mockito_kotlin_version = '2.1.0'
+
+        mockito_version = '2.28.1'
+        mockito_android_version = '2.28.1'
+
         // The AndroidX Test Library provides an extensive framework for testing Android apps.
         test_core_version = '1.0.0'
+        test_rules_version = '1.1.1'        // Android testing library's rules.
         test_runner_version = '1.1.1'       // Android testing library's runner.
 
 
@@ -69,7 +74,7 @@ buildscript {
 
         domainTestDependencies = [
                 kotlinJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
+                mockito            : "org.mockito:mockito-core:${mockito_version}"
         ]
 
         dataDependencies = [
@@ -80,7 +85,7 @@ buildscript {
 
         dataTestDependencies = [
                 kotlinJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
+                mockito            : "org.mockito:mockito-core:${mockito_version}"
         ]
 
         remoteDependencies = [
@@ -96,7 +101,7 @@ buildscript {
 
         remoteTestDependencies = [
                 kotlinJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}"
+                mockito      : "org.mockito:mockito-core:${mockito_version}"
         ]
 
         cacheDependencies = [
@@ -111,7 +116,7 @@ buildscript {
         cacheTestDependencies = [
                 archTesting  : "androidx.arch.core:core-testing:${arch_testing}",
                 kotlinJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
+                mockito      : "org.mockito:mockito-core:${mockito_version}",
                 robolectric  : "org.robolectric:robolectric:${robolectric_version}",
                 roomTesting  : "androidx.room:room-testing:${room_version}",
                 testCore     : "androidx.test:core:${test_core_version}",
@@ -128,7 +133,7 @@ buildscript {
         presentationTestDependencies = [
                 archTesting  : "androidx.arch.core:core-testing:${arch_testing}",
                 kotlinJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
+                mockito      : "org.mockito:mockito-core:${mockito_version}",
                 robolectric  : "org.robolectric:robolectric:${robolectric_version}"
         ]
 
@@ -155,8 +160,10 @@ buildscript {
                 daggerProcessor    : "com.google.dagger:dagger-android-processor:${dagger_version}",
                 daggerSupport      : "com.google.dagger:dagger-android-support:${dagger_version}",
                 kotlinJUnit        : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-                mockitoKotlin      : "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockito_kotlin_version}",
+                mockito            : "org.mockito:mockito-core:${mockito_version}",
+                mockitoAndroid     : "org.mockito:mockito-android:${mockito_android_version}",
                 testCore           : "androidx.test:core:${test_core_version}",
+                testRules          : "androidx.test:rules:${test_rules_version}",
                 testRunner         : "androidx.test:runner:${test_runner_version}"
         ]
 

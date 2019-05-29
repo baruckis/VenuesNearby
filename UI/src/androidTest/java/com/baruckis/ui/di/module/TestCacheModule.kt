@@ -19,9 +19,9 @@ package com.baruckis.ui.di.module
 import android.app.Application
 import com.baruckis.cache.db.AppDatabase
 import com.baruckis.data.repository.VenuesCache
-import com.nhaarman.mockitokotlin2.mock
 import dagger.Module
 import dagger.Provides
+import org.mockito.Mockito.mock
 
 @Module
 object TestCacheModule {
@@ -35,7 +35,7 @@ object TestCacheModule {
     @Provides
     @JvmStatic
     fun provideVenuesCache(): VenuesCache {
-        return mock()
+        return mock(VenuesCache::class.java)
     }
 
 }
