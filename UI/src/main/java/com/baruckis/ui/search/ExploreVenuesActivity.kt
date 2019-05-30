@@ -95,7 +95,7 @@ class ExploreVenuesActivity : AppCompatActivity(), SearchView.OnQueryTextListene
         })
 
     }
-    
+
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.putString(QUERY_PLACE_NAME, queryPlaceName)
         super.onSaveInstanceState(outState)

@@ -23,6 +23,7 @@ import com.baruckis.remote.model.Item
 import com.baruckis.remote.model.Response
 import com.baruckis.remote.model.VenueRecommendationsApiResponseModel
 import com.baruckis.remote.service.FoursquareApiService
+import com.baruckis.remote.utils.API_FOURSQUARE_GROUP_TYPE
 import io.reactivex.Single
 import org.junit.Test
 import org.mockito.Mockito
@@ -36,16 +37,16 @@ class VenuesRemoteImplTest {
     private val remote = VenuesRemoteImpl(service, mapper)
 
     private val item = Item(
-        Item.Venue(
-            "4d1a11a6cc216ea884ff81d3",
-            "Vingio parkas",
-            Item.Venue.Location(54.68293703261666, 25.237655639648438)
+        TestDataFactory.createItemVenue()
+    )
+    private val model = VenueRecommendationsApiResponseModel(
+        Response(
+            listOf(
+                Group(API_FOURSQUARE_GROUP_TYPE, listOf(item))
+            )
         )
     )
-    private val model = VenueRecommendationsApiResponseModel(Response(listOf(
-        Group("recommended", listOf(item)))))
-    private val entity =
-        VenueEntity("4d1a11a6cc216ea884ff81d3", "Vingio parkas", 54.68293703261666, 25.237655639648438)
+    private val entity = TestDataFactory.createVenueEntity()
 
     @Test
     fun getVenuesNearbyCompletes() {

@@ -14,28 +14,22 @@
  * limitations under the License.
  */
 
-package com.baruckis.remote.mapper
+package com.baruckis.remote
 
-import com.baruckis.remote.TestDataFactory
+import com.baruckis.data.model.VenueEntity
 import com.baruckis.remote.model.Item
-import org.junit.Test
-import kotlin.test.assertEquals
 
-class VenueRecommendationsApiResponseModelMapperTest {
+object TestDataFactory {
 
-    private val mapper = VenueRecommendationsApiResponseModelMapper()
-
-    @Test
-    fun mapFromApiResponseModel() {
-
-        val model = Item(
-            TestDataFactory.createItemVenue()
-        )
-        val entity = mapper.mapFromApiResponseModel(model)
-
-        assertEquals(model.venue.name, entity.name)
-        assertEquals(model.venue.location.lat, entity.latitude)
-        assertEquals(model.venue.location.lng, entity.longitude)
+    fun createVenueEntity(): VenueEntity {
+        return VenueEntity("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
     }
 
+    fun createItemVenue(): Item.Venue {
+        return Item.Venue(
+            "4d1a11a6cc216ea884ff8666",
+            "Vingio parkas",
+            Item.Venue.Location(54.68293703261666, 25.237655639648438)
+        )
+    }
 }
