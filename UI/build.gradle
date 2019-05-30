@@ -86,6 +86,8 @@ dependencies {
 
     androidTestImplementation uiTestDependencies.dagger
     androidTestImplementation uiTestDependencies.daggerSupport
+    androidTestImplementation uiTestDependencies.espresso
+    androidTestImplementation uiTestDependencies.espressoContrib
     androidTestImplementation uiTestDependencies.mockitoAndroid
     androidTestImplementation uiTestDependencies.testCore
     androidTestImplementation uiTestDependencies.testRules

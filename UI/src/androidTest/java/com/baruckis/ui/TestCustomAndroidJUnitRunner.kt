@@ -28,9 +28,10 @@ class TestCustomAndroidJUnitRunner : AndroidJUnitRunner() {
     override fun onCreate(arguments: Bundle?) {
         super.onCreate(arguments)
         // Whenever anything is subscribed to, the result is returned immediately.
-        RxJavaPlugins.setInitIoSchedulerHandler { Schedulers.trampoline() }
+        RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
     }
 
+    @Throws(InstantiationException::class, IllegalAccessException::class, ClassNotFoundException::class)
     override fun newApplication(cl: ClassLoader?, className: String?, context: Context?): Application {
         return super.newApplication(cl, TestVenuesNearbyApp::class.java.name, context)
     }

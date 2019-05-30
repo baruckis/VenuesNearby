@@ -17,6 +17,7 @@
 package com.baruckis.ui.di
 
 import android.app.Application
+import com.baruckis.domain.repository.VenuesDomainRepository
 import com.baruckis.ui.TestVenuesNearbyApp
 import com.baruckis.ui.di.module.*
 import dagger.BindsInstance
@@ -49,5 +50,7 @@ interface TestAppComponent {
 
     // The application which is allowed to request the dependencies declared by the modules.
     fun inject(application: TestVenuesNearbyApp)
+
+    fun getVenuesDomainRepository(): VenuesDomainRepository
 
 }

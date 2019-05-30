@@ -64,7 +64,7 @@ class ExploreVenuesActivity : AppCompatActivity(), SearchView.OnQueryTextListene
 
 
     companion object {
-        private const val QUERY_PLACE_NAME = "query_place_name"
+        const val QUERY_PLACE_NAME = "query_place_name"
     }
 
 
@@ -95,7 +95,7 @@ class ExploreVenuesActivity : AppCompatActivity(), SearchView.OnQueryTextListene
         })
 
     }
-
+    
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.putString(QUERY_PLACE_NAME, queryPlaceName)
         super.onSaveInstanceState(outState)

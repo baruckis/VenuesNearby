@@ -14,22 +14,26 @@
  * limitations under the License.
  */
 
-package com.baruckis.ui.di.module
+package com.baruckis.ui
 
-import com.baruckis.domain.repository.VenuesDomainRepository
-import dagger.Module
-import dagger.Provides
-import org.mockito.Mockito.mock
-import javax.inject.Singleton
+import com.baruckis.domain.model.Venue
 
-@Module
-object TestDataModule {
+object TestAndroidDataFactory {
 
-    @Provides
-    @Singleton
-    @JvmStatic
-    fun provideDataRepository(): VenuesDomainRepository {
-        return mock(VenuesDomainRepository::class.java)
+    fun createVenueFirst(): Venue {
+        return Venue("4d1a11a6cc216ea884ff81d3", "Trafalgar Sq", 51.50812811764834, -0.12808620929718018)
+    }
+
+    fun createVenueSecond(): Venue {
+        return Venue("4d1a11a6cc216ea884ff8555", "Gedimino pr.", 54.68736449150992, 25.279981398558263)
+    }
+
+    fun createVenuesList(): List<Venue> {
+        return listOf(createVenueFirst(), createVenueSecond())
+    }
+
+    fun createSearchPlaceName(): String {
+        return "Vilnius"
     }
 
 }
