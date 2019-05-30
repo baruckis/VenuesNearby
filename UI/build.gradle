@@ -26,8 +26,13 @@ android {
     buildToolsVersion rootProject.ext.android_build_tools_version
 
     defaultConfig {
+        applicationId "com.baruckis.venuesnearby"
+
         minSdkVersion rootProject.ext.android_min_sdk_version
         targetSdkVersion rootProject.ext.android_target_sdk_version
+
+        versionCode 1
+        versionName "1.0"
 
         // AndroidJUnitRunner is the instrumentation runner. This is essentially the entry point into running your
         // entire suite of tests. It controls the test environment, the test apk, and launches all of the tests
