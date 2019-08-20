@@ -22,6 +22,7 @@ import com.baruckis.ui.di.module.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
 import javax.inject.Singleton
 
 /**
@@ -44,7 +45,7 @@ import javax.inject.Singleton
             UiModule::class
         ]
 )
-interface AppComponent {
+interface AppComponent : AndroidInjector<VenuesNearbyApp> {
 
     @Component.Builder // Used for instantiation of a component.
     interface Builder {
@@ -56,6 +57,6 @@ interface AppComponent {
     }
 
     // The application which is allowed to request the dependencies declared by the modules.
-    fun inject(app: VenuesNearbyApp)
+    override fun inject(app: VenuesNearbyApp)
 
 }

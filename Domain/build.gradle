@@ -22,7 +22,10 @@ dependencies {
     def domainTestDependencies = rootProject.ext.domainTestDependencies
 
     implementation domainDependencies.javaxInject
+    implementation domainDependencies.kotlin
     implementation domainDependencies.rxKotlin
+
+    api domainDependencies.rxJava // RxKotlin is not resolved properly.
 
     testImplementation domainTestDependencies.kotlinJUnit
     testImplementation domainTestDependencies.mockito

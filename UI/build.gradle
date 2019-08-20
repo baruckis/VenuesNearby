@@ -65,6 +65,8 @@ dependencies {
     def uiDependencies = rootProject.ext.uiDependencies
     def uiTestDependencies = rootProject.ext.uiTestDependencies
 
+    // UI layer should depend only on Presentation module in theory, but because we use Dagger
+    // for DI, it needs other modules to be included to generate dependencies graph.
     implementation project(':Presentation')
     implementation project(':Data')
     implementation project(':Remote')

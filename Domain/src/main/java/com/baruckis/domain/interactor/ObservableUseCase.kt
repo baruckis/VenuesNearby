@@ -27,13 +27,16 @@ abstract class ObservableUseCase<T, in Params> constructor(private val postExecu
 
     private val disposables = CompositeDisposable()
 
-    abstract fun buildUseCaseObservable(params: Params? = null): Single<T>
+    abstract fun buildUseCaseObservable(params: Params? = null): Single<T> // The work you need to do.
 
     open fun execute(observer: DisposableSingleObserver<T>, params: Params? = null) {
         val observable = this.buildUseCaseObservable(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(postExecutionThread.scheduler)
-        addDisposable(observable.subscribeWith(observer))
+            /* Schedulers are responsible for performing operations of Observable on different threads.
+               IO generally used for stuff such as network requests, file system operations.
+               IO scheduler is backed by thread-pool. */
+                .subscribeOn(Schedulers.io()) // Thread you need the work to perform on.
+                .observeOn(postExecutionThread.scheduler) // Thread you need to handle the result on.
+        addDisposable(observable.subscribeWith(observer)) // Handle the result here.
     }
 
     fun dispose() {

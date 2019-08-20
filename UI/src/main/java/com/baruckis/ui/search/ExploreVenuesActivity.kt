@@ -48,7 +48,7 @@ class ExploreVenuesActivity : AppCompatActivity(), SearchView.OnQueryTextListene
 
     private lateinit var exploreVenuesViewModel: ExploreVenuesViewModel
 
-    @Inject
+    @Inject // It implements Dagger machinery of finding appropriate injector factory for a type.
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject

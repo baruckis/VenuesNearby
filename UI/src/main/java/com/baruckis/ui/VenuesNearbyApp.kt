@@ -16,20 +16,13 @@
 
 package com.baruckis.ui
 
-import android.app.Activity
-import android.app.Application
 import com.baruckis.presentation.BuildConfig
 import com.baruckis.ui.di.DaggerAppComponent
 import com.facebook.stetho.Stetho
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import javax.inject.Inject
+import dagger.android.DaggerApplication
 
-class VenuesNearbyApp : Application(), HasActivityInjector {
-
-    @Inject // It implements Dagger machinery of finding appropriate injector factory for a type.
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+class VenuesNearbyApp : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -37,14 +30,12 @@ class VenuesNearbyApp : Application(), HasActivityInjector {
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this)
         }
-
-        // Here we initialize Dagger. DaggerAppComponent is auto-generated from AppComponent.
-        DaggerAppComponent.builder().application(this).build().inject(this)
     }
 
-    // This is required by HasActivityInjector interface to setup Dagger for Activity.
-    override fun activityInjector(): AndroidInjector<Activity> {
-        return dispatchingAndroidInjector
+    // This is required by DaggerApplication class to setup Dagger for this application.
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        // Here we initialize Dagger. DaggerAppComponent is auto-generated from AppComponent.
+        return DaggerAppComponent.builder().application(this).build()
     }
 
 }

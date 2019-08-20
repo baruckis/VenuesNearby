@@ -16,20 +16,13 @@
 
 package com.baruckis.ui
 
-import android.app.Activity
-import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import com.baruckis.ui.di.DaggerTestAppComponent
 import com.baruckis.ui.di.TestAppComponent
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import javax.inject.Inject
+import dagger.android.DaggerApplication
 
-class TestVenuesNearbyApp : Application(), HasActivityInjector {
-
-    @Inject // It implements Dagger machinery of finding appropriate injector factory for a type.
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+class TestVenuesNearbyApp : DaggerApplication() {
 
     private lateinit var testDaggerAppComponent: TestAppComponent
 
@@ -39,18 +32,12 @@ class TestVenuesNearbyApp : Application(), HasActivityInjector {
         }
     }
 
-
-    override fun onCreate() {
-        super.onCreate()
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
 
         // Here we initialize Dagger. DaggerAppComponent is auto-generated from TestAppComponent.
         testDaggerAppComponent = DaggerTestAppComponent.builder().application(this).build()
-        testDaggerAppComponent.inject(this)
-    }
 
-    // This is required by HasActivityInjector interface to setup Dagger for Activity.
-    override fun activityInjector(): AndroidInjector<Activity> {
-        return dispatchingAndroidInjector
+        return testDaggerAppComponent
     }
 
 }
