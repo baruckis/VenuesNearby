@@ -16,6 +16,7 @@
 
 package com.baruckis.cache
 
+import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -30,7 +31,11 @@ import org.robolectric.annotation.Config
 
 // Robolectric setup
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+@Config(
+    manifest = Config.NONE,
+    // Robolectric is telling me that Java 9 is required.
+    sdk = [Build.VERSION_CODES.O_MR1]
+)
 class VenuesCacheImplTest {
 
     @Rule
@@ -80,7 +85,12 @@ class VenuesCacheImplTest {
     fun areVenuesNearbyCached() {
         val venueEntities = listOf(TestDataFactory.createVenueEntity())
         cache.saveVenuesNearby(venueEntities)
-            .andThen(cache.setLastCacheInfo(System.currentTimeMillis(), TestDataFactory.createPlaceName())).test()
+            .andThen(
+                cache.setLastCacheInfo(
+                    System.currentTimeMillis(),
+                    TestDataFactory.createPlaceName()
+                )
+            ).test()
 
         val testObserver = cache.areVenuesNearbyCached(TestDataFactory.createPlaceName()).test()
         testObserver.assertValue(true)

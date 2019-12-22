@@ -29,7 +29,11 @@ import org.robolectric.annotation.Config
 
 // Robolectric setup
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+@Config(
+    manifest = Config.NONE,
+    // Robolectric is telling me that Java 9 is required.
+    sdk = [android.os.Build.VERSION_CODES.O_MR1]
+)
 class VenueCachedDaoTest {
 
     @Rule
@@ -37,10 +41,11 @@ class VenueCachedDaoTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            AppDatabase::class.java)
-            .allowMainThreadQueries()
-            .build()
+        ApplicationProvider.getApplicationContext(),
+        AppDatabase::class.java
+    )
+        .allowMainThreadQueries()
+        .build()
 
     @After
     fun closeDb() {

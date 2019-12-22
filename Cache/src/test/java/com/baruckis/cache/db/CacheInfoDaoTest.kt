@@ -30,7 +30,11 @@ import org.robolectric.annotation.Config
 
 // Robolectric setup
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+@Config(
+    manifest = Config.NONE,
+    // Robolectric is telling me that Java 9 is required.
+    sdk = [android.os.Build.VERSION_CODES.O_MR1]
+)
 class CacheInfoDaoTest {
 
     @Rule
@@ -38,10 +42,11 @@ class CacheInfoDaoTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            AppDatabase::class.java)
-            .allowMainThreadQueries()
-            .build()
+        ApplicationProvider.getApplicationContext(),
+        AppDatabase::class.java
+    )
+        .allowMainThreadQueries()
+        .build()
 
     @After
     fun closeDb() {
@@ -51,7 +56,8 @@ class CacheInfoDaoTest {
     @Test
     fun replaceAndGetCacheInfo() {
 
-        val cacheUpdateTime = CacheInfo(-1, System.currentTimeMillis(), TestDataFactory.createPlaceName())
+        val cacheUpdateTime =
+            CacheInfo(-1, System.currentTimeMillis(), TestDataFactory.createPlaceName())
 
         database.cacheUpdateTimeDao().replaceCacheInfo(cacheUpdateTime)
 
